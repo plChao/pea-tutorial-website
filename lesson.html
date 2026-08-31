@@ -4,13 +4,14 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>課程 | APCS 教學網站</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="stylesheet" href="css/styles.css" />
 <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/diff@5.2.0/dist/diff.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
-<body>
+<body class="lesson-page-body">
   <header class="topbar">
     <button id="menuBtn" class="icon-btn" aria-label="開啟章節選單">☰</button>
     <div class="topbar__title">
@@ -50,8 +51,6 @@
           <div id="mcOptions" class="mc-options"></div>
           <div id="mcExplanation" class="task-panel__hint" hidden></div>
         </div>
-
-        <button id="nextChapterBtn" class="btn btn--primary" disabled>下一章 →</button>
       </div>
     </section>
 
@@ -81,6 +80,15 @@
       </div>
     </section>
   </main>
+
+  <footer class="lesson-footer">
+    <div class="lesson-footer__spacer"></div>
+    <div class="lesson-footer__progress" id="footerProgress">1 / 1</div>
+    <div class="lesson-footer__nav">
+      <button id="footerPrevBtn" class="btn btn--ghost" disabled>‹ 上一章</button>
+      <button id="footerNextBtn" class="btn btn--primary" disabled>下一章 ›</button>
+    </div>
+  </footer>
 
   <script type="module" src="js/pages/lesson.js"></script>
 </body>

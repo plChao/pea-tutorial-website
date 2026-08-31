@@ -48,8 +48,10 @@ const els = {
   mcQuestion: document.getElementById("mcQuestion"),
   mcOptions: document.getElementById("mcOptions"),
   mcExplanation: document.getElementById("mcExplanation"),
-  nextChapterBtn: document.getElementById("nextChapterBtn"),
   workspace: document.getElementById("workspace"),
+  footerProgress: document.getElementById("footerProgress"),
+  footerPrevBtn: document.getElementById("footerPrevBtn"),
+  footerNextBtn: document.getElementById("footerNextBtn"),
   paneLesson: document.getElementById("paneLesson"),
   paneEditor: document.getElementById("paneEditor"),
   paneIo: document.getElementById("paneIo"),
@@ -123,6 +125,56 @@ function renderSidebarAndTopbar() {
     if (progress.completed) dot.classList.add("progress-dots__dot--done");
     if (isCurrent) dot.classList.add("progress-dots__dot--current");
     els.progressDots.appendChild(dot);
+  });
+
+  updateFooterNav();
+}
+
+// Footer's "下一章" stays clickable even when locked (not a native `disabled`
+// button) so clicking it can explain *why* via SweetAlert, instead of a real
+// disabled button that would just silently eat the click.
+function updateFooterNav() {
+  const idx = chapters.findIndex((c) => c.id === docId);
+  els.footerProgress.textContent = `${idx + 1} / ${chapters.length}`;
+
+  const prevChapter = chapters[idx - 1];
+  els.footerPrevBtn.disabled = !prevChapter;
+
+  const nextChapter = chapters[idx + 1];
+  if (!nextChapter) {
+    els.footerNextBtn.disabled = true;
+    els.footerNextBtn.classList.remove("btn--locked");
+  } else {
+    els.footerNextBtn.disabled = false;
+    const progress = getChapterProgress(state, courseId, docId);
+    els.footerNextBtn.classList.toggle("btn--locked", !progress.completed);
+  }
+}
+
+function setupFooterNav() {
+  els.footerPrevBtn.addEventListener("click", () => {
+    const idx = chapters.findIndex((c) => c.id === docId);
+    const prev = chapters[idx - 1];
+    if (prev) location.href = `lesson.html?course=${courseId}&doc=${prev.id}`;
+  });
+
+  els.footerNextBtn.addEventListener("click", () => {
+    const idx = chapters.findIndex((c) => c.id === docId);
+    const next = chapters[idx + 1];
+    if (!next) return;
+    const progress = getChapterProgress(state, courseId, docId);
+    if (!progress.completed) {
+      if (window.Swal) {
+        window.Swal.fire({
+          icon: "info",
+          title: "還沒完成這一章喔",
+          text: "請先完成這一章的所有任務，才能前往下一章。",
+          confirmButtonText: "好的",
+        });
+      }
+      return;
+    }
+    location.href = `lesson.html?course=${courseId}&doc=${next.id}`;
   });
 }
 
@@ -257,10 +309,9 @@ function maxUnlockedSubtask() {
 }
 
 function updateSubtaskNavButtons() {
-  const progress = getChapterProgress(state, courseId, docId);
   els.prevSubtaskBtn.disabled = currentSubtaskId <= 1;
   els.nextSubtaskBtn.disabled = currentSubtaskId >= maxUnlockedSubtask();
-  els.nextChapterBtn.disabled = !progress.completed;
+  updateFooterNav();
 }
 
 function renderMcOptions() {
@@ -459,11 +510,6 @@ function setupRunButton() {
   els.nextSubtaskBtn.addEventListener("click", () => {
     if (currentSubtaskId < maxUnlockedSubtask()) goToSubtask(currentSubtaskId + 1);
   });
-  els.nextChapterBtn.addEventListener("click", () => {
-    const idx = chapters.findIndex((c) => c.id === docId);
-    const next = chapters[idx + 1];
-    if (next) location.href = `lesson.html?course=${courseId}&doc=${next.id}`;
-  });
 }
 
 async function init() {
@@ -472,6 +518,7 @@ async function init() {
   setupIoDivider();
   setupStdinTextarea(els.stdinBox);
   setupRunButton();
+  setupFooterNav();
 
   meta = await loadCourseMetadata(courseId);
   chapters = meta.chapters || [];
