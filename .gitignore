@@ -2,6 +2,7 @@
 .DS_Store
 Thumbs.db
 desktop.ini
+
 DocToClaude.md
 
 # Generated at deploy time from the THE_ACCESS_CODE GitHub Actions secret
