@@ -34,6 +34,40 @@ button {
 
 a { color: var(--accent-2); }
 
+/* ---------- Password gate ---------- */
+.auth-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--bg-darker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+.auth-gate__box {
+  width: min(360px, 100%);
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  text-align: center;
+}
+.auth-gate__box h2 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+.auth-gate__box p { margin: 0 0 1.1rem; color: var(--text-dim); font-size: 0.88rem; }
+.auth-gate__input {
+  width: 100%;
+  padding: 0.6em 0.8em;
+  margin-bottom: 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-dark);
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+.auth-gate .btn { width: 100%; }
+.auth-gate__error { color: #ff8080; font-size: 0.85rem; margin: 0.8rem 0 0; }
+
 /* ---------- Buttons ---------- */
 .btn {
   border: none;

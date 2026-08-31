@@ -20,6 +20,7 @@ import { evaluateBadges, celebrateBadges } from "../badges.js";
 import { renderDiffHtml, outputsMatch } from "../diff.js";
 import { createCodeEditor, setupStdinTextarea } from "../editor.js";
 import { initPyodideRunner, runPython } from "../pyodideRunner.js";
+import { requireUnlock } from "../authGate.js";
 
 const params = new URLSearchParams(location.search);
 const courseId = params.get("course") || "001";
@@ -491,4 +492,4 @@ async function init() {
   renderSidebarAndTopbar();
 }
 
-init();
+requireUnlock(init);
