@@ -342,8 +342,11 @@ function renderResolvedMc() {
   showMcExplanation();
 }
 
+const MC_AUTO_ADVANCE_DELAY_MS = 1100;
+
 // A wrong pick only locks *that* option (red) so the student can keep
-// trying the others; a correct pick locks everything (green).
+// trying the others; a correct pick locks everything (green) and, after a
+// short beat to see the explanation, auto-advances to the next subtask.
 function selectMcOption(letter) {
   const passed = letter === currentSubtask.answer;
   const btn = Array.from(els.mcOptions.children).find((b) => b.dataset.letter === letter);
@@ -359,9 +362,12 @@ function selectMcOption(letter) {
   const chProgress = recordSubtaskAttempt(state, courseId, docId, currentSubtaskId, passed, false);
   recordPracticeToday(state);
 
+  const subtaskIdAtAnswer = currentSubtaskId;
+  const isLastSubtask = currentSubtaskId >= exerciseMeta.subtaskCount;
+
   const events = [];
   if (passed) {
-    if (currentSubtaskId >= exerciseMeta.subtaskCount) {
+    if (isLastSubtask) {
       markChapterComplete(state, courseId, docId);
       events.push({ type: "chapter-complete", perfect: chProgress.perfect });
     }
@@ -372,6 +378,14 @@ function selectMcOption(letter) {
   renderSidebarAndTopbar();
   updateSubtaskNavButtons();
   handleBadgeEvents(events);
+
+  if (passed && !isLastSubtask) {
+    setTimeout(() => {
+      // Only jump if the student hasn't already navigated away manually
+      // during the delay (e.g. clicked ‹ to review an earlier subtask).
+      if (currentSubtaskId === subtaskIdAtAnswer) goToSubtask(subtaskIdAtAnswer + 1);
+    }, MC_AUTO_ADVANCE_DELAY_MS);
+  }
 }
 
 async function renderSubtaskPanel() {

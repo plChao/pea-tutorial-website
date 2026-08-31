@@ -2,15 +2,12 @@
 
 依照 APCS 實作題的級分標準，小明可以獲得哪一個級分？
 
-A. 一級分
-B. 二級分
-C. 三級分
-D. 四級分
-
-<details> <summary>查看答案</summary>
-
-答案：C
-
+<select1>A. 一級分</select1>
+<select2>B. 二級分</select2>
+<select3>C. 三級分</select3>
+<select4>D. 四級分</select4>
+<ans>C</ans>
+<detail>
 中級題本的級分標準：
 
 - 0～99 分：一級分
@@ -18,5 +15,4 @@ D. 四級分
 - 150～300 分：三級分
 
 因此小明獲得 160 分，可以取得三級分。
-
-</details>
+</detail>

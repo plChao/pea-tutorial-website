@@ -58,51 +58,50 @@ export async function loadInitCode(courseId, exerciseId) {
 
 const HINT_MARKER = "---HINT---";
 const STDIN_MARKER = "---STDIN---";
-const DETAILS_BLOCK = /<details[^>]*>\s*<summary>[^<]*<\/summary>([\s\S]*?)<\/details>/i;
-const ANSWER_LINE = /\*{0,2}答案[:：]\s*\*{0,2}\s*([A-D])\s*\*{0,2}/;
 
-// Multiple-choice subtasks are authored as: scenario/question text, then a
-// run of "A. ..." / "B. ..." / ... option lines, then the answer — either
-// bare ("答案：X" + explanation) or wrapped in <details><summary>查看答案
-// </summary>...</details>. This parses that exact human-authored shape
-// directly (both variants) rather than forcing a stricter structured format
-// that would require rewriting existing content.
+// Fixed multiple-choice format: free question text, then one <selectN>...
+// </selectN> tag per option (content starts with the option's own letter,
+// e.g. "A. 一級分"), then <ans>LETTER</ans>, then optional <detail>...</detail>.
+//   題目文字...
+//   <select1>A. 一級分</select1>
+//   <select2>B. 二級分</select2>
+//   <ans>B</ans>
+//   <detail>說明...</detail>
+const SELECT_TAG = /<select(\d+)>([\s\S]*?)<\/select\1>/g;
+const ANS_TAG = /<ans>([\s\S]*?)<\/ans>/;
+const DETAIL_TAG = /<detail>([\s\S]*?)<\/detail>/;
+const OPTION_LETTER = /^\s*([A-Za-z0-9]+)[.、]?\s*(.*)$/s;
+
 function parseMcRequest(raw) {
-  const lines = raw.split(/\r?\n/);
-  const firstOptIdx = lines.findIndex((l) => /^[A-D][.、]\s*/.test(l));
-  if (firstOptIdx === -1) return null;
+  const selectMatches = [...raw.matchAll(SELECT_TAG)];
+  if (!selectMatches.length) return null;
 
-  const options = [];
-  let i = firstOptIdx;
-  while (i < lines.length) {
-    const m = lines[i].match(/^([A-D])[.、]\s*(.+)$/);
-    if (m) {
-      options.push({ letter: m[1], text: m[2].trim() });
-      i++;
-    } else if (lines[i].trim() === "" && options.length > 0) {
-      i++;
-      break;
-    } else {
-      break;
-    }
+  const options = selectMatches.map((m) => {
+    const content = m[2].trim();
+    const parsed = content.match(OPTION_LETTER);
+    return parsed ? { letter: parsed[1], text: parsed[2].trim() } : { letter: content, text: content };
+  });
+
+  const ansMatch = raw.match(ANS_TAG);
+  if (!ansMatch) {
+    throw new Error("選擇題有 <selectN> 但缺少 <ans> 標籤");
   }
-  if (options.length < 2) return null;
-
-  const question = lines.slice(0, firstOptIdx).join("\n").trim();
-  let rest = lines.slice(i).join("\n").trim();
-
-  const detailsMatch = rest.match(DETAILS_BLOCK);
-  let explanation = detailsMatch ? detailsMatch[1].trim() : rest;
-
-  const answerMatch = explanation.match(ANSWER_LINE);
-  const answer = answerMatch ? answerMatch[1] : options[0].letter;
-  if (answerMatch) {
-    explanation = (
-      explanation.slice(0, answerMatch.index) + explanation.slice(answerMatch.index + answerMatch[0].length)
-    ).trim();
+  const ansKey = ansMatch[1].trim();
+  const matchedOption = options.find((o) => o.letter.toLowerCase() === ansKey.toLowerCase());
+  if (!matchedOption) {
+    throw new Error(`<ans>${ansKey}</ans> 找不到對應的 <selectN> 選項`);
   }
 
-  return { type: "mc", question, options, answer, explanation };
+  const question = raw.slice(0, selectMatches[0].index).trim();
+  const detailMatch = raw.match(DETAIL_TAG);
+
+  return {
+    type: "mc",
+    question,
+    options,
+    answer: matchedOption.letter,
+    explanation: detailMatch ? detailMatch[1].trim() : "",
+  };
 }
 
 function parseCodeRequest(raw) {
