@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>APCS 教學網站</title>
+<link rel="stylesheet" href="css/styles.css" />
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>APCS 教學網站</h1>
+    <p>用寫程式破關的方式，一步步準備 APCS（Advanced Placement Computer Science）檢定。</p>
+  </header>
+
+  <main class="page-body">
+    <h2 class="section-title">課程</h2>
+    <div id="courseGrid" class="course-grid">
+      <p>課程載入中…</p>
+    </div>
+
+    <h2 class="section-title">成就徽章</h2>
+    <div id="badgeGrid" class="badge-grid"></div>
+
+    <div class="data-actions">
+      <button id="exportBtn" class="btn btn--ghost">匯出進度</button>
+      <button id="importBtn" class="btn btn--ghost">匯入進度</button>
+      <input type="file" id="importFile" accept="application/json" hidden />
+    </div>
+  </main>
+
+  <script type="module" src="js/pages/index.js"></script>
+</body>
+</html>

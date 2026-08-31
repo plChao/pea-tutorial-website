@@ -1,0 +1,60 @@
+<script type="application/json" id="meta">
+{ "title": "輸出（output）" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-1-1</p>
+<h1>輸出（output）</h1>
+
+在上一章你已經用過 `print()` 印出文字了。這一章要介紹 `print()` 的一個小細節：**`end` 參數**，它決定了每次 `print()` 印完之後要接什麼。
+
+## `print()` 預設會自動換行
+
+`print()` 每次呼叫，結尾都會自動幫你加上一個換行字元，所以連續呼叫兩次會分成兩行：
+
+<pre><code>print("APCS")
+print("Advanced Placement Computer Science")</code></pre>
+
+輸出：
+
+<pre><code>APCS
+Advanced Placement Computer Science</code></pre>
+
+這是因為 `print()` 其實還有一個藏起來的參數，預設值是 `end="\n"`（`\n` 就是換行字元）。上面兩行程式碼其實等同於：
+
+<pre><code>print("APCS", end="\n")
+print("Advanced Placement Computer Science", end="\n")</code></pre>
+
+## 用 `end` 參數改變結尾
+
+如果不想換行，可以把 `end` 改成別的字串，例如空字串 `""`（完全不接東西）或一個空白 `" "`：
+
+<pre><code>print("Hello", end="")
+print("APCS")</code></pre>
+
+輸出會變成同一行：
+
+<pre><code>HelloAPCS</code></pre>
+
+如果改用 `end=" "`，兩個字之間就會多一個空白：
+
+<pre><code>print("Hello", end=" ")
+print("APCS")</code></pre>
+
+輸出：
+
+<pre><code>Hello APCS</code></pre>
+
+## 常見用法：在同一行印出多個值
+
+`end` 最常見的用法，是搭配迴圈(loop)，把好幾個值印在同一行、用空白隔開：
+
+<pre><code>for i in range(1, 4):
+    print(i, end=" ")</code></pre>
+
+輸出（同一行，數字間用空白分開，結尾沒有換行）：
+
+<pre><code>1 2 3 </code></pre>
+
+<p class="placeholder-note">小提醒：這種「結尾沒有換行」的輸出，判題時一樣會正確被抓到，不用擔心少了最後的換行會被當成程式沒有執行完。</p>
+
+準備好了嗎？下面有兩個小任務，練習用 `print()` 跟 `end` 參數控制輸出格式。

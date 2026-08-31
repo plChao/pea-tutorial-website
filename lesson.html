@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>課程 | APCS 教學網站</title>
+<link rel="stylesheet" href="css/styles.css" />
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/diff@5.2.0/dist/diff.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <header class="topbar">
+    <button id="menuBtn" class="icon-btn" aria-label="開啟章節選單">☰</button>
+    <div class="topbar__title">
+      <span id="chapterTitle">載入中…</span>
+      <div class="progress-dots" id="progressDots"></div>
+    </div>
+    <a href="index.html" class="topbar__home">回首頁</a>
+  </header>
+
+  <aside id="sidebar" class="sidebar" hidden>
+    <div class="sidebar__header">
+      <span id="sidebarCourseTitle">章節列表</span>
+      <button id="closeSidebar" aria-label="關閉選單">✕</button>
+    </div>
+    <ol id="chapterList" class="chapter-list"></ol>
+  </aside>
+  <div id="sidebarOverlay" class="sidebar-overlay" hidden></div>
+
+  <main class="workspace" id="workspace">
+    <section class="pane pane--lesson" id="paneLesson">
+      <div id="lessonContent" class="lesson-content">教材載入中…</div>
+      <div id="taskPanel" class="task-panel" hidden>
+        <div class="task-panel__nav">
+          <button id="prevSubtaskBtn" class="icon-btn" aria-label="上一個任務">‹</button>
+          <div id="taskStep" class="task-panel__step"></div>
+          <button id="nextSubtaskBtn" class="icon-btn" aria-label="下一個任務">›</button>
+        </div>
+
+        <div id="codeTaskView" hidden>
+          <div id="taskDesc" class="task-panel__desc"></div>
+          <button id="hintBtn" class="btn btn--ghost" hidden>💡 顯示提示</button>
+          <div id="hintText" class="task-panel__hint" hidden></div>
+        </div>
+
+        <div id="mcTaskView" hidden>
+          <div id="mcQuestion" class="task-panel__desc"></div>
+          <div id="mcOptions" class="mc-options"></div>
+          <div id="mcExplanation" class="task-panel__hint" hidden></div>
+        </div>
+
+        <button id="nextChapterBtn" class="btn btn--primary" disabled>下一章 →</button>
+      </div>
+    </section>
+
+    <div class="pane-divider pane-divider--v" id="paneDividerA"></div>
+
+    <section class="pane pane--editor" id="paneEditor">
+      <div class="pane__header">&gt;_ code.py</div>
+      <div id="codeEditor" class="code-editor"></div>
+      <div class="editor-actions">
+        <button id="runBtn" class="btn btn--run" disabled>▶ Run</button>
+        <span id="pyodideStatus" class="pyodide-status">Python 執行環境載入中…</span>
+      </div>
+    </section>
+
+    <div class="pane-divider pane-divider--v" id="paneDividerB"></div>
+
+    <section class="pane pane--io" id="paneIo">
+      <div class="io-stdin" id="ioStdin">
+        <div class="pane__header">&gt;_ stdin</div>
+        <textarea id="stdinBox" class="stdin-textarea" spellcheck="false" placeholder="在這裡輸入標準輸入(stdin)測資… (python code.py < stdin.txt)"></textarea>
+      </div>
+      <div class="io-divider" id="ioDivider"></div>
+      <div class="io-output" id="ioOutput">
+        <div class="pane__header">Output</div>
+        <pre id="outputBox" class="output-box">Program output will appear here...</pre>
+        <div id="diffBox" class="diff-box" hidden></div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/pages/lesson.js"></script>
+</body>
+</html>

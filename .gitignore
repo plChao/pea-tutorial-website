@@ -1,0 +1,28 @@
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+DocToClaude.md
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+npm-debug.log*
+
+# In case a build tool or local tooling gets added later
+node_modules/
+dist/
+.env
+.env.local
+
+# Python (running refsol.py locally, ad-hoc scripts, etc.)
+__pycache__/
+*.pyc
+
+# OS-level temp files
+*.tmp
+*~
