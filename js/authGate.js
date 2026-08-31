@@ -44,7 +44,6 @@ function renderGate(onUnlock) {
   overlay.innerHTML = `
     <div class="auth-gate__box">
       <h2>請輸入密碼</h2>
-      <p>這是付費課程內容，請輸入你取得的通關密碼繼續。</p>
       <input type="password" id="authGateInput" class="auth-gate__input" autocomplete="off" autofocus />
       <button type="button" id="authGateSubmit" class="btn btn--primary">進入</button>
       <p id="authGateError" class="auth-gate__error" hidden>密碼錯誤，請再試一次。</p>
