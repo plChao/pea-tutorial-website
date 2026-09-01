@@ -252,6 +252,15 @@ a { color: var(--accent-2); }
 .chapter-list li a:hover { background: rgba(255,255,255,0.06); }
 .chapter-list li a.chapter-list__link--active { background: rgba(79,195,247,0.15); color: var(--accent-2); }
 .chapter-list li a.chapter-list__link--locked { color: var(--text-dim); pointer-events: none; opacity: 0.5; }
+.chapter-list li a.chapter-list__link--indented { padding-left: 1.6rem; }
+
+.chapter-list__section-header {
+  padding: 0.9rem 0.75rem 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-dim);
+}
 
 .sidebar-overlay {
   position: fixed;

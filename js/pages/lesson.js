@@ -99,20 +99,42 @@ function setupSidebarToggle() {
   els.sidebarOverlay.addEventListener("click", close);
 }
 
+// A chapter id's first two "-"-joined segments (e.g. "2-2-3a" -> "2-2") group
+// it under a section header IF that prefix has a title in meta.sections —
+// chapters whose prefix isn't listed there (e.g. "1-1-1") render flat/unindented,
+// so authoring a section title is opt-in per prefix, not automatic for every id.
+function chapterSectionPrefix(chapterId) {
+  return chapterId.split("-").slice(0, 2).join("-");
+}
+
 function renderSidebarAndTopbar() {
   els.sidebarCourseTitle.textContent = meta.title;
   els.chapterList.innerHTML = "";
   els.progressDots.innerHTML = "";
+
+  const sections = meta.sections || {};
+  let lastSectionPrefix = null;
 
   chapters.forEach((ch) => {
     const unlocked = isChapterUnlocked(state, courseId, chapters, ch.id);
     const progress = getChapterProgress(state, courseId, ch.id);
     const isCurrent = ch.id === docId;
 
+    const sectionPrefix = chapterSectionPrefix(ch.id);
+    const sectionTitle = sections[sectionPrefix];
+    if (sectionTitle && sectionPrefix !== lastSectionPrefix) {
+      const sectionLi = document.createElement("li");
+      sectionLi.className = "chapter-list__section-header";
+      sectionLi.textContent = `${sectionPrefix} ${sectionTitle}`;
+      els.chapterList.appendChild(sectionLi);
+    }
+    lastSectionPrefix = sectionPrefix;
+
     const li = document.createElement("li");
     const a = document.createElement("a");
     a.href = `lesson.html?course=${courseId}&doc=${ch.id}`;
     a.className = "chapter-list__link";
+    if (sectionTitle) a.classList.add("chapter-list__link--indented");
     if (isCurrent) a.classList.add("chapter-list__link--active");
     if (!unlocked) a.classList.add("chapter-list__link--locked");
     const icon = progress.completed ? "✅" : unlocked ? "📘" : "🔒";

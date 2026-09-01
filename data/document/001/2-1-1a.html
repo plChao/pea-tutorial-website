@@ -1,0 +1,42 @@
+<script type="application/json" id="meta">
+{ "title": "輸出(output)(1)" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-1-1(1／2)</p>
+<h1>輸出(output)(1)</h1>
+
+寫程式第一件事，通常是讓程式「說話」——把文字或數字顯示到畫面上。在 Python 裡，這件事是靠 `print()` 完成的。
+
+## `print()`：把東西印到畫面上
+
+<pre><code>print("Hello, APCS!")</code></pre>
+
+輸出：
+
+<pre><code>Hello, APCS!</code></pre>
+
+`print()` 後面的括號裡放你想印出來的東西。如果是文字(字串)，前後要用引號(`"` 或 `'`)括起來；如果是數字，不用加引號：
+
+<pre><code>print("成績：")
+print(87)</code></pre>
+
+輸出：
+
+<pre><code>成績：
+87</code></pre>
+
+可以看到，`print()` 每呼叫一次，就會自動換到下一行——這件事下一節會再深入介紹。
+
+## 一次印出多個值
+
+`print()` 可以放不只一個值，用逗號 `,` 隔開，Python 會自動在每個值中間補一個空白：
+
+<pre><code>print("APCS", 2026)</code></pre>
+
+輸出：
+
+<pre><code>APCS 2026</code></pre>
+
+這比自己用 `+` 把字串接起來方便，尤其是要混著印文字跟數字的時候(用 `+` 接數字還要先轉成字串，之後章節會提到)。
+
+準備好了嗎？下面有一個小任務先熟悉 `print()` 的基本用法，下一節會接著介紹 `print()` 一個更細節的參數：`end`。

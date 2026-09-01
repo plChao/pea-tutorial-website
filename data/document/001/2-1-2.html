@@ -1,0 +1,46 @@
+<script type="application/json" id="meta">
+{ "title": "輸入(input)" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-1-2</p>
+<h1>輸入(input)</h1>
+
+上一章學了怎麼把東西「印出來」，這一章反過來：怎麼讓程式**讀進**使用者輸入的資料。
+
+## `input()`：讀一行文字
+
+`input()` 會讓程式暫停，等使用者打字、按下 Enter，然後把那一整行文字回傳回來：
+
+<pre><code>name = input()
+print("哈囉，" + name + "！")</code></pre>
+
+也可以在 `input()` 裡放提示文字，直接顯示在畫面上：
+
+<pre><code>name = input("請輸入你的名字：")</code></pre>
+
+在這個網站的練習中，「使用者輸入」就是右側 stdin 欄位裡的內容——`input()` 每呼叫一次，就會照順序讀進 stdin 裡的下一行。
+
+## 重要：`input()` 讀進來的永遠是字串
+
+即使使用者打的是數字，`input()` 回傳的還是**字串**(str)，不是數字(int)。這代表：
+
+<pre><code>age = input()
+print(age + 1)</code></pre>
+
+上面這段會報錯(`TypeError`)，因為字串不能直接跟數字相加。如果要拿輸入的內容做數學運算，要先用 `int()` 或 `float()` 轉成數字：
+
+<pre><code>age = int(input())
+print(age + 1)</code></pre>
+
+`int()` 轉成整數，`float()` 轉成小數；如果字串裡不是純數字(例如打了英文字)，轉換會報錯，這點之後講錯誤處理時會再提到。
+
+## 進階小提示：一行輸入多個數字
+
+APCS 題目常常一行給好幾個數字，用空白隔開，例如 `3 5`。這時可以用 `.split()` 先把整行拆成好幾個字串，再分別轉型態：
+
+<pre><code>a, b = input().split()
+a = int(a)
+b = int(b)
+print(a + b)</code></pre>
+
+這一段先看過有印象就好，不用現在就完全弄懂，之後的章節會有更多練習機會。

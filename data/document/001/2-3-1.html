@@ -1,0 +1,42 @@
+<script type="application/json" id="meta">
+{ "title": "條件判斷" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-3-1</p>
+<h1>條件判斷</h1>
+
+前面學了怎麼寫出 `True`／`False`，這一章要用它們來控制程式的走向：「如果條件成立，就做這件事」。
+
+## `if`：條件成立才執行
+
+<pre><code>score = 75
+if score >= 60:
+    print("及格")</code></pre>
+
+`if` 後面接一個條件式，結尾要加冒號 `:`；下一行要**縮排**(通常是 4 個空白)，縮排的範圍就是「條件成立時要執行的程式碼」。這點跟很多其他語言用 `{ }` 括起來不一樣，Python 是用縮排來決定區塊範圍的，縮排錯了程式就會出錯或跑錯結果。
+
+## `if...else`：條件不成立時的另一條路
+
+<pre><code>score = 45
+if score >= 60:
+    print("及格")
+else:
+    print("不及格")</code></pre>
+
+`else` 不需要再寫條件，代表「上面的 `if` 不成立時」要執行的部分。
+
+## `if...elif...else`：多個條件依序檢查
+
+如果有兩個以上的情況要分開處理，可以用 `elif`(else if 的縮寫)，程式會**由上往下**依序檢查，第一個成立的條件執行完就結束，不會再往下檢查：
+
+<pre><code>n = 0
+if n > 0:
+    print("正數")
+elif n < 0:
+    print("負數")
+else:
+    print("零")</code></pre>
+
+`elif` 可以寫很多個，最後的 `else` 是可以省略的(如果每種情況都已經用 `if`／`elif` 涵蓋到)。
+
+準備好了嗎？下面的練習會用到 `if`、`if...else`、`if...elif...else` 三種寫法。
