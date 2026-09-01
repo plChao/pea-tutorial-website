@@ -2,7 +2,7 @@ export const BADGES = [
   { id: "first_run", icon: "🏁", title: "初次啼聲", desc: "第一次按下 Run 按鈕" },
   { id: "fail_streak_5", icon: "💪", title: "越挫越勇", desc: "同一個任務連續送出檢查失敗 5 次" },
   { id: "first_exercise_clear", icon: "🎯", title: "一戰功成", desc: "第一次完整解完一個練習" },
-  { id: "perfect_clear", icon: "✨", title: "完美無瑕", desc: "某個練習全程零失敗、零看提示就全部通過" },
+  { id: "perfect_clear", icon: "✨", title: "完美無瑕", desc: "某個練習全程零失敗就全部通過" },
   { id: "three_day_streak", icon: "📅", title: "連續三日", desc: "三個不同日期都有解題紀錄" },
 ];
 

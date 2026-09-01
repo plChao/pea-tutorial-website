@@ -452,6 +452,24 @@ a { color: var(--accent-2); }
 .diff-cell--removed { background: rgba(224,56,76,0.25); color: #ffb3bb; }
 .diff-cell--added { background: rgba(55,178,77,0.25); color: #b6f0c0; }
 
+.error-hint-box {
+  flex-shrink: 0;
+  margin: 0 0.6rem 0.6rem;
+  padding: 0.7rem 0.9rem;
+  background: rgba(255, 193, 7, 0.12);
+  border: 1px solid rgba(255, 193, 7, 0.4);
+  border-radius: 8px;
+  font-size: 0.84rem;
+  line-height: 1.6;
+  color: #f4d58a;
+}
+.error-hint-box code {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+
 .lesson-footer {
   flex-shrink: 0;
   height: 52px;

@@ -20,6 +20,7 @@ import { evaluateBadges, celebrateBadges } from "../badges.js";
 import { renderDiffHtml, outputsMatch } from "../diff.js";
 import { createCodeEditor, setupStdinTextarea } from "../editor.js";
 import { initPyodideRunner, runPython } from "../pyodideRunner.js";
+import { translateError } from "../errorHints.js";
 import { requireUnlock } from "../authGate.js";
 
 const params = new URLSearchParams(location.search);
@@ -42,8 +43,6 @@ const els = {
   taskStep: document.getElementById("taskStep"),
   codeTaskView: document.getElementById("codeTaskView"),
   taskDesc: document.getElementById("taskDesc"),
-  hintBtn: document.getElementById("hintBtn"),
-  hintText: document.getElementById("hintText"),
   mcTaskView: document.getElementById("mcTaskView"),
   mcQuestion: document.getElementById("mcQuestion"),
   mcOptions: document.getElementById("mcOptions"),
@@ -65,6 +64,7 @@ const els = {
   ioStdin: document.getElementById("ioStdin"),
   outputBox: document.getElementById("outputBox"),
   diffBox: document.getElementById("diffBox"),
+  errorHintBox: document.getElementById("errorHintBox"),
 };
 
 let state = loadState();
@@ -342,7 +342,7 @@ function renderResolvedMc() {
   showMcExplanation();
 }
 
-const MC_AUTO_ADVANCE_DELAY_MS = 1100;
+const MC_AUTO_ADVANCE_DELAY_MS = 550;
 
 // A wrong pick only locks *that* option (red) so the student can keep
 // trying the others; a correct pick locks everything (green) and, after a
@@ -391,6 +391,7 @@ function selectMcOption(letter) {
 async function renderSubtaskPanel() {
   els.taskPanel.hidden = false;
   els.taskStep.textContent = `任務 ${currentSubtaskId} / ${exerciseMeta.subtaskCount}`;
+  showErrorHint("");
 
   const progress = getChapterProgress(state, courseId, docId);
   const alreadyPassed = !!progress.subtaskPassed[currentSubtaskId];
@@ -408,10 +409,6 @@ async function renderSubtaskPanel() {
     els.codeTaskView.hidden = false;
     els.mcTaskView.hidden = true;
     els.taskDesc.innerHTML = md(currentSubtask.description);
-    els.hintText.hidden = true;
-    els.hintText.innerHTML = md(currentSubtask.hint);
-    els.hintBtn.hidden = !currentSubtask.hint;
-    els.hintBtn.textContent = "💡 顯示提示";
     els.stdinBox.value = currentSubtask.stdin || "";
     await ensureCodeRuntime();
   }
@@ -460,6 +457,11 @@ function showDiff(expected, actual) {
   els.diffBox.innerHTML = renderDiffHtml(expected, actual);
 }
 
+function showErrorHint(html) {
+  els.errorHintBox.hidden = !html;
+  els.errorHintBox.innerHTML = html ? `💡 ${html}` : "";
+}
+
 async function handleBadgeEvents(events) {
   let newly = [];
   for (const ev of events) {
@@ -479,6 +481,7 @@ function setupRunButton() {
     if (!pyodideReady) return;
     els.runBtn.disabled = true;
     setOutput("執行中…");
+    showErrorHint("");
     const code = editor.getCode();
     const stdinValue = els.stdinBox.value;
     const result = await runPython(code, stdinValue);
@@ -487,6 +490,7 @@ function setupRunButton() {
         ? "\n\n⚠ 輸出過長，已截斷顯示(可能是無窮迴圈持續印出內容)。"
         : "";
     setOutput(result.stdout + (result.stderr ? "\n" + result.stderr : "") + truncatedNote, !result.ok);
+    if (!result.ok) showErrorHint(translateError(result.stderr));
     recordPracticeToday(state);
 
     const events = [{ type: "run" }];
@@ -497,8 +501,7 @@ function setupRunButton() {
         !result.stdoutTruncated &&
         !result.stderrTruncated &&
         outputsMatch(currentSubtask.expectout, result.stdout);
-      const hintShown = !els.hintText.hidden;
-      const chProgress = recordSubtaskAttempt(state, courseId, docId, currentSubtaskId, passed, hintShown);
+      const chProgress = recordSubtaskAttempt(state, courseId, docId, currentSubtaskId, passed, false);
 
       if (passed) {
         if (currentSubtaskId >= exerciseMeta.subtaskCount) {
@@ -511,19 +514,18 @@ function setupRunButton() {
         renderSidebarAndTopbar();
       } else {
         events.push({ type: "submit-fail", failStreak: chProgress.failStreak });
-        showDiff(currentSubtask.expectout, result.stdout);
-        if (chProgress.failStreak >= 2 && currentSubtask.hint) {
-          els.hintText.hidden = false;
+        // Only diff expected-vs-actual when the program actually ran to completion —
+        // if it crashed, result.stdout is whatever printed before the exception (often
+        // empty), and a diff against that would bury the traceback that setOutput()
+        // already showed. Leave the traceback + error hint visible instead.
+        if (result.ok) {
+          showDiff(currentSubtask.expectout, result.stdout);
         }
       }
     }
 
     await handleBadgeEvents(events);
     els.runBtn.disabled = false;
-  });
-
-  els.hintBtn.addEventListener("click", () => {
-    els.hintText.hidden = !els.hintText.hidden;
   });
 
   els.prevSubtaskBtn.addEventListener("click", () => {

@@ -1,15 +1,29 @@
 const UNLOCK_KEY = "apcs_tutor_unlocked_v1";
 
+// sha256("8sa1") — a fixed, throwaway password so `python -m http.server`
+// on localhost unlocks out of the box with no setup. Only ever used as a
+// fallback on localhost (see below); the real deployed site always requires
+// js/auth-config.js and never falls back to this.
+const LOCAL_DEV_PASSWORD_HASH = "4db056778affb5b27befc5a9a40c47439c8a2cfe402bbb87223905f7f5a5e523";
+const LOCAL_DEV_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);
+
 // js/auth-config.js is generated at deploy time from a GitHub Actions secret
 // (see .github/workflows/deploy.yml) and is gitignored — if it's ever missing
-// (e.g. a deploy step was skipped) we fail CLOSED: PASSWORD_HASH stays null,
-// which no real SHA-256 hash can ever equal, so the gate just never unlocks
-// instead of crashing the page or accidentally letting everyone in.
+// on the deployed site (e.g. a deploy step was skipped) we fail CLOSED:
+// PASSWORD_HASH stays null, which no real SHA-256 hash can ever equal, so the
+// gate just never unlocks instead of crashing the page or accidentally
+// letting everyone in. On localhost only, missing auth-config.js instead
+// falls back to the fixed dev password above, so local testing needs no setup.
 let PASSWORD_HASH = null;
 try {
   ({ PASSWORD_HASH } = await import("./auth-config.js"));
 } catch {
-  console.warn("auth-config.js missing — access gate will not unlock.");
+  if (LOCAL_DEV_HOSTS.has(location.hostname)) {
+    PASSWORD_HASH = LOCAL_DEV_PASSWORD_HASH;
+    console.warn("auth-config.js missing — using local dev default password (8sa1).");
+  } else {
+    console.warn("auth-config.js missing — access gate will not unlock.");
+  }
 }
 
 async function sha256Hex(text) {
