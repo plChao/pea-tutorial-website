@@ -294,10 +294,15 @@ async function ensureCodeRuntime() {
         // no 0init_code.py for this exercise — keep the generic default
       }
     }
-    editor = createCodeEditor(els.codeEditorEl, savedCode != null ? savedCode : initCode, (code) => {
-      setChapterCode(state, courseId, docId, code);
-      persist();
-    });
+    editor = createCodeEditor(
+      els.codeEditorEl,
+      savedCode != null ? savedCode : initCode,
+      (code) => {
+        setChapterCode(state, courseId, docId, code);
+        persist();
+      },
+      () => els.runBtn.click(),
+    );
   }
 }
 

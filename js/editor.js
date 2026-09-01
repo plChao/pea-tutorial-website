@@ -11,8 +11,9 @@ import { python } from "https://esm.sh/@codemirror/lang-python@6.1.6?target=es20
 import { oneDark } from "https://esm.sh/@codemirror/theme-one-dark@6.1.2?target=es2022";
 import { keymap } from "https://esm.sh/@codemirror/view@^6.0.0?target=es2022";
 import { indentWithTab } from "https://esm.sh/@codemirror/commands@^6.0.0?target=es2022";
+import { Prec } from "https://esm.sh/@codemirror/state@^6.0.0?target=es2022";
 
-export function createCodeEditor(parentEl, initialCode, onChange) {
+export function createCodeEditor(parentEl, initialCode, onChange, onRun) {
   const view = new EditorView({
     doc: initialCode,
     extensions: [
@@ -20,6 +21,16 @@ export function createCodeEditor(parentEl, initialCode, onChange) {
       python(),
       oneDark,
       keymap.of([indentWithTab]),
+      // basicSetup's own defaultKeymap already binds Mod-Enter to insertBlankLine,
+      // and (being installed first, above) would win and silently eat the
+      // keystroke before it reached a same-precedence binding here — so this
+      // override needs Prec.highest to actually take priority over it.
+      Prec.highest(
+        keymap.of([
+          // "Mod" is CodeMirror's cross-platform modifier: Ctrl on Windows/Linux, Cmd on Mac.
+          { key: "Mod-Enter", run: () => { if (onRun) onRun(); return true; } },
+        ]),
+      ),
       EditorView.updateListener.of((update) => {
         if (update.docChanged && onChange) onChange(view.state.doc.toString());
       }),

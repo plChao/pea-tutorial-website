@@ -21,6 +21,7 @@ npm-debug.log*
 
 # In case a build tool or local tooling gets added later
 node_modules/
+**/__node_modules_tmp/
 dist/
 .env
 .env.local
