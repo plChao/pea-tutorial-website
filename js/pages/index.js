@@ -24,7 +24,7 @@ async function renderCourses() {
         <h3>${meta.title}</h3>
         <p>${meta.description || ""}</p>
         <div class="progress-bar"><div class="progress-bar__fill" style="width:${pct}%"></div></div>
-        <div class="progress-label">${pct}% 完成（共 ${chapters.length} 章）</div>
+        <div class="progress-label">${pct}% 完成(共 ${chapters.length} 章)</div>
       `;
       grid.appendChild(card);
     });

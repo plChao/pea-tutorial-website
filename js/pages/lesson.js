@@ -482,13 +482,21 @@ function setupRunButton() {
     const code = editor.getCode();
     const stdinValue = els.stdinBox.value;
     const result = await runPython(code, stdinValue);
-    setOutput(result.stdout + (result.stderr ? "\n" + result.stderr : ""), !result.ok);
+    const truncatedNote =
+      result.stdoutTruncated || result.stderrTruncated
+        ? "\n\n⚠ 輸出過長，已截斷顯示(可能是無窮迴圈持續印出內容)。"
+        : "";
+    setOutput(result.stdout + (result.stderr ? "\n" + result.stderr : "") + truncatedNote, !result.ok);
     recordPracticeToday(state);
 
     const events = [{ type: "run" }];
 
     if (currentSubtask && currentSubtask.type === "code" && stdinValue === (currentSubtask.stdin || "")) {
-      const passed = result.ok && outputsMatch(currentSubtask.expectout, result.stdout);
+      const passed =
+        result.ok &&
+        !result.stdoutTruncated &&
+        !result.stderrTruncated &&
+        outputsMatch(currentSubtask.expectout, result.stdout);
       const hintShown = !els.hintText.hidden;
       const chProgress = recordSubtaskAttempt(state, courseId, docId, currentSubtaskId, passed, hintShown);
 

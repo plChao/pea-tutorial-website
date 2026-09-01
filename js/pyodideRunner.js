@@ -34,7 +34,7 @@ export function initPyodideRunner(onReady) {
   spawnWorker();
 }
 
-export function runPython(code, stdin, timeoutMs = 10000) {
+export function runPython(code, stdin, timeoutMs = 15000) {
   return new Promise((resolve) => {
     const id = ++idCounter;
     const timer = setTimeout(() => {
@@ -48,7 +48,7 @@ export function runPython(code, stdin, timeoutMs = 10000) {
         ok: false,
         timeout: true,
         stdout: "",
-        stderr: "執行逾時（可能是無窮迴圈），已重新啟動執行環境，請再試一次。",
+        stderr: "執行逾時(可能是無窮迴圈)，已重新啟動執行環境，請再試一次。",
       });
     }, timeoutMs);
     pending.set(id, { resolve, timer });

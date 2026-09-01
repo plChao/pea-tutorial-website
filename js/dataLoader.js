@@ -1,12 +1,12 @@
 async function fetchText(path) {
   const res = await fetch(path);
-  if (!res.ok) throw new Error(`無法載入 ${path}（${res.status}）`);
+  if (!res.ok) throw new Error(`無法載入 ${path}(${res.status})`);
   return res.text();
 }
 
 async function fetchJSON(path) {
   const res = await fetch(path);
-  if (!res.ok) throw new Error(`無法載入 ${path}（${res.status}）`);
+  if (!res.ok) throw new Error(`無法載入 ${path}(${res.status})`);
   return res.json();
 }
 

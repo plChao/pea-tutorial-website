@@ -8,10 +8,10 @@ chapters:
     file: "1-1-1.html"
     exercise: "1-1-1"
   - id: "2-1-1"
-    title: "輸出（output）"
+    title: "輸出(output)"
     file: "2-1-1.html"
     exercise: "2-1-1"
   - id: "2-2-1"
-    title: "算術運算（arithmetic operation）"
+    title: "算術運算(arithmetic operation)"
     file: "2-2-1.html"
 ---
