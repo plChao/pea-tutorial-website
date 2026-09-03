@@ -1,0 +1,75 @@
+<script type="application/json" id="meta">
+{ "title": "while 迴圈" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-4-3(2／2)</p>
+<h1>while 迴圈</h1>
+
+`for` 迴圈適合「知道要重複幾次」的情況(例如 `range(5)`)。但有時候你**不知道要重複幾次**，只知道「重複到某個條件不成立為止」——這時候要用 `while` 迴圈。
+
+## while 的基本語法
+
+<pre><code>i = 1
+while i <= 5:
+    print(i)
+    i = i + 1</code></pre>
+
+輸出：
+
+<pre><code>1
+2
+3
+4
+5</code></pre>
+
+`while 條件:` 的意思是「只要條件是 `True`，就重複執行縮排區塊」。每次執行完區塊，會再檢查一次條件，條件變成 `False` 才會離開迴圈。
+
+<p class="placeholder-note">一定要記得在迴圈裡想辦法讓條件最後會變成 False(像上面的 `i = i + 1`)，否則迴圈會永遠執行下去，稱為「無窮迴圈」，程式會卡住。</p>
+
+## 常見寫法：讀到特定值為止
+
+`while` 最常見的用途之一，是「不斷讀取輸入，直到讀到某個特定的值(哨兵值)才停止」，因為你事先不知道會輸入幾筆資料：
+
+<pre><code>total = 0
+x = int(input())
+while x != 0:
+    total = total + x
+    x = int(input())
+print(total)</code></pre>
+
+如果輸入是 `3`、`5`、`2`、`0`(每行一個)，程式會把 0 之前的數字加起來，輸出 `10`，讀到 `0` 就停止，`0` 本身不會被加進去。
+
+## break：直接跳出迴圈
+
+`break` 可以讓程式**立刻結束整個迴圈**，不管條件是不是還成立：
+
+<pre><code>i = 1
+while True:
+    if i > 5:
+        break
+    print(i)
+    i = i + 1</code></pre>
+
+這段程式跟前面「印出 1 到 5」的效果一樣。`while True:` 代表條件永遠是 `True`，所以一定要靠迴圈裡的 `break` 才能離開，這是很常見的寫法：把離開條件寫在迴圈**裡面**，而不是寫在 `while` 後面。`break` 對 `for` 迴圈也一樣有效。
+
+## continue：跳過這一輪，繼續下一輪
+
+`continue` 會**跳過這一輪剩下的程式碼**，直接進到下一輪(不會結束整個迴圈)：
+
+<pre><code>i = 0
+while i < 10:
+    i = i + 1
+    if i % 2 == 0:
+        continue
+    print(i)</code></pre>
+
+這段程式只會印出 1 到 10 之間的**奇數**：每次 `i` 加 1 之後，如果是偶數就用 `continue` 跳過 `print(i)`，直接回到 `while` 重新檢查條件。
+
+## for 還是 while？
+
+- 知道明確重複次數，或是要走訪一個串列 → 用 `for`
+- 不知道要重複幾次，要依條件決定何時停止(例如讀到特定輸入才停) → 用 `while`
+
+兩者都可以搭配 `break`/`continue`，也都可以跟 `if` 自由組合，實務上大多數迴圈都寫得出 `for` 版本跟 `while` 版本，選擇哪一種主要看「哪個寫起來比較直覺」。
+
+準備好了嗎？下面的練習來練習 `while`、`break` 和 `continue`。

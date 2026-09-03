@@ -1,0 +1,14 @@
+執行以下程式：
+
+<pre><code>print(type("18"))</code></pre>
+
+輸出會是什麼？
+
+<select1>A. &lt;class 'int'&gt;</select1>
+<select2>B. &lt;class 'str'&gt;</select2>
+<select3>C. &lt;class 'float'&gt;</select3>
+<select4>D. 18</select4>
+<ans>B</ans>
+<detail>
+`"18"` 有加引號，是一個字串(`str`)，即使裡面的內容看起來像數字也一樣。只有沒加引號的 `18` 才是 `int`。
+</detail>

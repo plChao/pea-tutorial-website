@@ -1,0 +1,14 @@
+執行下面這段程式：
+
+<pre><code>print(bin(9))</code></pre>
+
+會印出什麼？
+
+<select1>A. 9</select1>
+<select2>B. 0b1001</select2>
+<select3>C. 1001</select3>
+<select4>D. 0b1010</select4>
+<ans>B</ans>
+<detail>
+`9` 的二進位是 `1001`(`1*8 + 0*4 + 0*2 + 1*1 = 9`)。`bin()` 會在前面加上 `0b` 表示這是二進位字串，所以結果是 `0b1001`。
+</detail>

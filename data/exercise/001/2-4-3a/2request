@@ -1,0 +1,17 @@
+閱讀下面的程式碼：
+
+<pre><code>total = 0
+for i in range(1, 5):
+    total = total + i
+print(total)</code></pre>
+
+請問輸出是？
+
+<select1>A. 6</select1>
+<select2>B. 10</select2>
+<select3>C. 15</select3>
+<select4>D. 4</select4>
+<ans>B</ans>
+<detail>
+`range(1, 5)` 產生 1、2、3、4(不包含 5)。`total` 從 0 開始依序累加：0+1=1，1+2=3，3+3=6，6+4=10。所以最後 `total` 是 10。
+</detail>

@@ -1,0 +1,124 @@
+<script type="application/json" id="meta">
+{ "title": "變數與資料型別" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-1-3</p>
+<h1>變數與資料型別</h1>
+
+上一篇偷偷用了 `name = input()` 把輸入存起來，這篇要正式介紹**變數(variable)**，還有 Python 裡最基本的四種**資料型別(data type)**。
+
+## 變數：幫值取一個名字
+
+變數就是「用一個名字，代表一個值」。寫法是：
+
+<pre><code>名字 = 值</code></pre>
+
+例如：
+
+<pre><code>age = 18
+print(age)</code></pre>
+
+輸出：
+
+<pre><code>18</code></pre>
+
+`age = 18` 的意思是「把 18 這個值存進 `age` 這個變數」，之後只要寫 `age`，就等於在用 18 這個值。變數也可以重新賦值，之後的內容會蓋掉之前的：
+
+<pre><code>score = 60
+print(score)
+score = 90
+print(score)</code></pre>
+
+輸出：
+
+<pre><code>60
+90</code></pre>
+
+### 變數命名規則
+
+- 只能用英文字母、數字、底線 `_`，不能有空白或其他符號。
+- 不能用數字開頭(`1name` 不合法，`name1` 合法)。
+- 大小寫是不同的變數(`Age` 跟 `age`是兩個變數)。
+- 不能用 Python 保留給自己用的關鍵字，例如 `print`、`input`、`if`(之後會陸續學到)。
+- 習慣上會用有意義的英文單字命名，例如 `score`、`total`，而不是 `a`、`x1` 這種看不出用途的名字。
+
+## 四種基本資料型別
+
+Python 裡每一個值都有自己的**型別**，決定它是什麼種類的資料。先認識最基本的四種：
+
+| 型別 | 中文 | 範例 |
+|:---:|:---:|:---|
+| `int` | 整數 | `18`、`-3`、`0` |
+| `float` | 浮點數(小數) | `3.14`、`-0.5` |
+| `str` | 字串(文字) | `"hello"`、`"18"` |
+| `bool` | 布林值(真假值) | `True`、`False` |
+
+`bool` 只有兩個值：`True`(真) 跟 `False`(假)，注意開頭要大寫。之後學到比較大小、判斷條件的時候，會常常用到 `bool`，這篇先知道它的存在就好。
+
+<pre><code>print(True)
+print(False)</code></pre>
+
+輸出：
+
+<pre><code>True
+False</code></pre>
+
+## 用 type() 檢查型別
+
+想知道一個值是什麼型別，可以用 `type()`：
+
+<pre><code>print(type(18))
+print(type(3.14))
+print(type("hello"))
+print(type(True))</code></pre>
+
+輸出：
+
+<pre><code>&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'bool'&gt;</code></pre>
+
+要特別注意：`18` 是 `int`，但 `"18"`(有引號)是 `str`，兩者型別不一樣：
+
+<pre><code>print(type(18))
+print(type("18"))</code></pre>
+
+輸出：
+
+<pre><code>&lt;class 'int'&gt;
+&lt;class 'str'&gt;</code></pre>
+
+## input() 讀到的一定是 str
+
+這件事很重要：不管使用者輸入的是文字還是數字，`input()` 讀進來的結果**永遠是 `str`**：
+
+<pre><code>x = input("請輸入一個數字：")
+print(type(x))</code></pre>
+
+就算輸入 `100`，`type(x)` 印出來還是 `&lt;class 'str'&gt;`，而不是 `int`。
+
+## 型別轉換
+
+如果需要把 `str` 轉成數字才能使用(例如之後要拿數字做計算)，可以用轉換函式：
+
+- `int(x)`：把 `x` 轉成整數
+- `float(x)`：把 `x` 轉成浮點數
+- `str(x)`：把 `x` 轉成字串
+
+<pre><code>x = input("請輸入你的年齡：")
+age = int(x)
+print(type(age))</code></pre>
+
+假設輸入 `18`，輸出會是：
+
+<pre><code>&lt;class 'int'&gt;</code></pre>
+
+實務上常常把 `input()` 和轉換函式寫在同一行：
+
+<pre><code>age = int(input("請輸入你的年齡："))
+print(age)</code></pre>
+
+這行的意思是：先執行 `input(...)` 讀到一個 `str`，再馬上用 `int(...)` 把它轉成整數，最後存進 `age`。
+
+準備好了嗎？下面有練習題，練習變數與型別轉換的用法。

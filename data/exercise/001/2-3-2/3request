@@ -1,0 +1,17 @@
+執行下面這段程式：
+
+<pre><code>x = 7
+print(not (x % 2 == 0))</code></pre>
+
+會印出什麼？
+
+<select1>A. True</select1>
+<select2>B. False</select2>
+<select3>C. 0</select3>
+<select4>D. 1</select4>
+<ans>A</ans>
+<detail>
+`x % 2` 是 `7 % 2 = 1`，`1 == 0` 是 `False`，`not False` 就是 `True`。
+
+換句話說，這段程式其實是在問「x 是不是奇數」：7 是奇數，所以結果是 `True`。
+</detail>

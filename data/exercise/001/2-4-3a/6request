@@ -1,0 +1,9 @@
+讀入一行英文單字，用空白隔開。請用 `.split()` 拆開，再用 for 迴圈找出**最長的單字**並輸出(輸入保證只有一個單字最長)。
+
+範例：如果輸入是
+
+<pre><code>cat dog elephant fox owl</code></pre>
+
+輸出應該是：
+
+<pre><code>elephant</code></pre>

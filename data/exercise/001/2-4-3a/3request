@@ -1,0 +1,19 @@
+閱讀下面的程式碼：
+
+<pre><code>nums = [3, 8, 5, 12, 7, 4]
+count = 0
+for n in nums:
+    if n % 2 == 0:
+        count = count + 1
+print(count)</code></pre>
+
+請問輸出是？
+
+<select1>A. 2</select1>
+<select2>B. 3</select2>
+<select3>C. 4</select3>
+<select4>D. 6</select4>
+<ans>B</ans>
+<detail>
+這段程式在數串列裡有幾個偶數。`nums` 裡的偶數是 8、12、4，共 3 個，所以 `count` 最後是 3。
+</detail>

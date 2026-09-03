@@ -134,7 +134,12 @@ export async function loadSubtask(courseId, exerciseId, n) {
   const parsed = parseRequest(requestRaw);
   if (parsed.type === "code") {
     const expectout = await fetchText(`${base}expectout.txt`);
-    return { ...parsed, expectout };
+    // Ninput.txt is the preferred way to give a subtask its stdin — when it
+    // exists it overrides any legacy ---STDIN--- section still embedded in
+    // Nrequest, so switching subtasks always re-syncs the stdin box to it.
+    const inputFile = await fetchText(`${base}input.txt`).catch(() => null);
+    const stdin = inputFile !== null ? inputFile : parsed.stdin;
+    return { ...parsed, expectout, stdin };
   }
   return parsed;
 }

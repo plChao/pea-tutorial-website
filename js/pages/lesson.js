@@ -262,7 +262,10 @@ function setupPaneResizing() {
   dragBoundary(els.paneDividerB, 1, 2);
 }
 
-// mc-type subtasks don't need the code editor / stdin+output panes at all.
+// Pure-MC exercises (no code subtask at all, e.g. 1-1-1) don't need the code
+// editor / stdin+output panes. But if the exercise also has code subtasks,
+// keep those panes visible even while looking at an mc subtask, so the
+// layout doesn't jump back and forth as the student steps through subtasks.
 function setPaneVisibility(showCode) {
   const display = showCode ? "" : "none";
   els.paneEditor.style.display = display;
@@ -297,6 +300,18 @@ function setupIoDivider() {
 }
 
 // ---------- lazy code runtime (editor + Pyodide) ----------
+// 0init_code.py only exists for exercise dirs that have at least one code
+// subtask (see Method.md) — reuse that as the "does this chapter have code
+// subtasks at all" signal, same convention ensureCodeRuntime() relies on.
+async function exerciseHasCodeSubtask(courseId, exerciseId) {
+  try {
+    await loadInitCode(courseId, exerciseId);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function ensureCodeRuntime() {
   if (!pyodideInitStarted) {
     pyodideInitStarted = true;
@@ -425,7 +440,9 @@ async function renderSubtaskPanel() {
   const alreadyPassed = !!progress.subtaskPassed[currentSubtaskId];
 
   if (currentSubtask.type === "mc") {
-    setPaneVisibility(false);
+    const keepCodePanes = !!(exerciseMeta && exerciseMeta.__hasCode);
+    setPaneVisibility(keepCodePanes);
+    if (keepCodePanes) await ensureCodeRuntime();
     els.codeTaskView.hidden = true;
     els.mcTaskView.hidden = false;
     els.mcQuestion.innerHTML = md(currentSubtask.question);
@@ -468,6 +485,7 @@ async function setupExercise(chapterInfo) {
     return;
   }
   exerciseMeta.__exerciseId = chapterInfo.exercise;
+  exerciseMeta.__hasCode = await exerciseHasCodeSubtask(courseId, chapterInfo.exercise);
 
   await goToSubtask(maxUnlockedSubtask());
 }

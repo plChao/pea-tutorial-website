@@ -1,8 +1,14 @@
-任務 1(暖身)：請利用迴圈跟 print() 的 end 參數，在「同一行」依序印出 1 到 5，數字之間用一個空白分開，結尾不要換行。
+執行以下程式：
 
-範例輸出：
+<pre><code>print("A\nB")</code></pre>
 
-```
-1 2 3 4 5
-```
----STDIN---
+輸出總共會有幾行？
+
+<select1>A. 1 行，內容是 A\nB</select1>
+<select2>B. 2 行，第一行 A，第二行 B</select2>
+<select3>C. 會出現錯誤，不能執行</select3>
+<select4>D. 2 行，第一行 B，第二行 A</select4>
+<ans>B</ans>
+<detail>
+`\n` 是逸出字元，代表換行，並不是真的印出 `\` 和 `n` 這兩個字元。所以 `"A\nB"` 印出來會變成兩行：第一行 `A`，第二行 `B`。
+</detail>

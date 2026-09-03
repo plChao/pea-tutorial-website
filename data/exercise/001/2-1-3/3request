@@ -1,0 +1,10 @@
+請寫一個程式，用 `input()` 讀取一個數字字串，用 `int()` 把它轉換成整數存進變數 `num`，接著依序印出 `num` 和 `type(num)`。
+
+範例：如果輸入是
+
+<pre><code>42</code></pre>
+
+輸出應該是：
+
+<pre><code>42
+&lt;class 'int'&gt;</code></pre>

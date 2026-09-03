@@ -1,0 +1,19 @@
+閱讀下面的程式碼：
+
+<pre><code>i = 1
+while True:
+    if i > 4:
+        break
+    print(i)
+    i = i + 1</code></pre>
+
+請問輸出是？
+
+<select1>A. 1 2 3 4(每個數字一行)</select1>
+<select2>B. 1 2 3 4 5(每個數字一行)</select2>
+<select3>C. 程式會無窮迴圈，永遠印下去</select3>
+<select4>D. 什麼都不印</select4>
+<ans>A</ans>
+<detail>
+`while True:` 本身永遠成立，要靠迴圈裡的 `break` 才能離開。當 `i` 變成 5 時，`i > 4` 成立，執行 `break` 離開迴圈，所以只會印出 1 到 4。
+</detail>

@@ -1,0 +1,13 @@
+讀入一行購物清單，物品名稱之間用空白隔開。請依序完成以下操作，並在最後輸出整個清單：
+
+1. 用 `.remove()` 刪除清單中的 `"banana"`
+2. 用 `.insert(0, ...)` 在清單最前面插入 `"milk"`
+3. 用 `.pop()` 移除清單最後一項
+
+範例：如果輸入是
+
+<pre><code>apple banana cherry date</code></pre>
+
+輸出應該是：
+
+<pre><code>['milk', 'apple', 'cherry']</code></pre>

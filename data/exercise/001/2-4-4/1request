@@ -1,0 +1,17 @@
+已知：
+
+<pre><code>grid = [
+    [10, 20, 30],
+    [40, 50, 60]
+]</code></pre>
+
+請問 `grid[1][2]` 的值是？
+
+<select1>A. 20</select1>
+<select2>B. 30</select2>
+<select3>C. 50</select3>
+<select4>D. 60</select4>
+<ans>D</ans>
+<detail>
+`grid[1]` 是第 1 列(索引從 0 開始)，也就是 `[40, 50, 60]`；再取 `[2]`，是這一列第 2 個元素，也就是 60。
+</detail>

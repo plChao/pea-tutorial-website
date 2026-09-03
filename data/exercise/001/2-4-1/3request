@@ -1,9 +1,21 @@
-任務 3：讀入一個整數 n，用 for 迴圈印出 1 到 n 之間所有的偶數，數字之間用一個空白分開，同一行。
+下面兩段程式，哪一句敘述最正確？
 
-範例：如果輸入是 10，輸出應該是：
+程式一(巢狀 if)：
 
-```
-2 4 6 8 10
-```
----STDIN---
-10
+<pre><code>if age < 18:
+    if has_ticket == "yes":
+        print("A")</code></pre>
+
+程式二(用 and 合併)：
+
+<pre><code>if age < 18 and has_ticket == "yes":
+    print("A")</code></pre>
+
+<select1>A. 兩段程式只有語法不同，但邏輯上是等價的：都是「age < 18 而且 has_ticket == "yes" 同時成立」才會印出 A</select1>
+<select2>B. 程式一只要 age < 18 就一定會印出 A，跟 has_ticket 無關</select2>
+<select3>C. 程式二有語法錯誤，if 後面不能接 and</select3>
+<select4>D. 兩段程式的結果一定不一樣</select4>
+<ans>A</ans>
+<detail>
+巢狀 if 跟用 `and` 合併成一層，是同一種邏輯的兩種寫法：都要求兩個條件「同時成立」才會印出 A。實務上如果條件不多，用 `and` 合併通常比巢狀 if 更精簡易讀。
+</detail>

@@ -1,9 +1,18 @@
-任務 3：讀入一個整數 n，用 while 迴圈從 1 開始不斷乘以 2，直到數值大於等於 n 為止，印出最後的數值。
+閱讀下面的程式碼：
 
-範例：如果輸入是 100，輸出應該是：
+<pre><code>nums = [5, 10, 15]
+nums.append(20)
+nums.insert(0, 1)
+nums.remove(10)
+print(nums)</code></pre>
 
-```
-128
-```
----STDIN---
-100
+請問輸出是？
+
+<select1>A. [1, 5, 15, 20]</select1>
+<select2>B. [5, 15, 20, 1]</select2>
+<select3>C. [1, 5, 10, 15, 20]</select3>
+<select4>D. [1, 5, 20]</select4>
+<ans>A</ans>
+<detail>
+依序執行：`append(20)` → `[5, 10, 15, 20]`；`insert(0, 1)` 在索引 0 插入 1 → `[1, 5, 10, 15, 20]`；`remove(10)` 刪除值為 10 的元素 → `[1, 5, 15, 20]`。
+</detail>

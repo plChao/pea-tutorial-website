@@ -1,8 +1,14 @@
-任務 2：請用迴圈跟 print() 的 end 參數，在「同一行」依序印出 10 到 15，數字之間用一個空白分開，結尾不要換行。
+執行以下程式：
 
-範例輸出：
+<pre><code>print("x", "y", "z", sep="-")</code></pre>
 
-```
-10 11 12 13 14 15
-```
----STDIN---
+輸出會是什麼？
+
+<select1>A. x y z</select1>
+<select2>B. x-y-z</select2>
+<select3>C. x, y, z</select3>
+<select4>D. xyz</select4>
+<ans>B</ans>
+<detail>
+`sep="-"` 把 `print()` 原本用來分隔多個值的空白，改成 `-`，所以三個值中間都會用 `-` 隔開，輸出 `x-y-z`。
+</detail>

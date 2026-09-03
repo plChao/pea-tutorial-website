@@ -1,4 +1,14 @@
-任務 1(暖身)：請使用 print() 印出下面這行文字(一字不差，注意大小寫與標點符號)：
+下面哪一行程式碼可以正確印出 `Hello`(不含引號)？
 
-Hello, APCS!
----STDIN---
+<select1>A. print(Hello)</select1>
+<select2>B. print("Hello")</select2>
+<select3>C. output("Hello")</select3>
+<select4>D. print["Hello"]</select4>
+<ans>B</ans>
+<detail>
+`print()` 是 Python 的輸出指令，字串要用引號包起來，並且用小括號 `()` 傳給 `print`。
+
+- A 少了引號，`Hello` 會被當成一個變數名稱，而不是字串。
+- C 的 `output` 不是 Python 的指令。
+- D 用了中括號 `[]`，`print` 要用小括號 `()`。
+</detail>

@@ -1,38 +1,97 @@
 <script type="application/json" id="meta">
-{ "title": "for 迴圈" }
+{ "title": "條件判斷 if/elif/else" }
 </script>
 
 <p class="eyebrow">CHAPTER 2-4-1</p>
-<h1>for 迴圈</h1>
+<h1>條件判斷 if/elif/else</h1>
 
-如果要「重複做某件事很多次」，一個一個寫 `print()` 太累了。這一章介紹 `for` 迴圈，讓程式自己重複執行。
+到目前為止，我們寫的程式都是「從第一行執行到最後一行」，中間不會轉彎。但實際上寫程式常常需要「依照不同情況做不同的事」，例如：分數及格就印「及格」，不及格就印「不及格」。這種依照條件走不同路的能力，就叫做**條件判斷**。
 
-## `range()`：產生一連串數字
+## if 的基本語法
 
-`for` 最常見的搭檔是 `range()`，它會產生一串數字：
+<pre><code>score = int(input())
 
-| 寫法 | 產生的數字 |
-|---|---|
-| `range(5)` | `0, 1, 2, 3, 4`(從 0 到 4，不含 5) |
-| `range(1, 6)` | `1, 2, 3, 4, 5`(從 1 到 5，不含 6) |
-| `range(1, 10, 2)` | `1, 3, 5, 7, 9`(從 1 開始，每次 +2) |
+if score >= 60:
+    print("及格")</code></pre>
 
-**注意**：`range(a, b)` 不包含 `b` 本身，這是最容易搞錯的地方——如果想印到 5，要寫 `range(1, 6)`，不是 `range(1, 5)`。
+`if` 後面接一個結果是 `True`/`False` 的條件式(還記得 `>=` 這種比較運算子嗎？)，加上冒號 `:`。下一行要**縮排**(通常按一次 Tab 或 4 個空白)，縮排的這幾行就是「條件成立時才會執行」的區塊。只要縮排一致，區塊可以包含好幾行程式碼。
 
-## `for` 迴圈基本寫法
+<p class="placeholder-note">Python 是用縮排來決定程式碼區塊的範圍，跟很多語言用大括號 { } 不一樣。縮排不對齊會直接造成錯誤，這是初學者最容易犯的錯誤之一。</p>
 
-<pre><code>for i in range(1, 6):
-    print(i)</code></pre>
+## else：條件不成立的時候
 
-`i` 是迴圈變數，每一輪迴圈會依序變成 `range()` 產生的下一個數字，`for` 這一行結尾也要冒號 `:`，下面縮排的部分就是每一輪要重複執行的程式碼。
+<pre><code>score = int(input())
 
-## 常見用法：累加總和
+if score >= 60:
+    print("及格")
+else:
+    print("不及格")</code></pre>
 
-<pre><code>total = 0
-for i in range(1, 6):
-    total = total + i
-print(total)</code></pre>
+`else` 不需要再寫條件，代表「上面的 if 條件不成立時，執行這裡」。`if` 和 `else` 的區塊只會**擇一執行**，不會兩個都跑。
 
-輸出 `15`(1+2+3+4+5)。這個「先設一個初始值，每輪迴圈更新它」的寫法非常常見，之後會一直用到。
+## elif：一個以上的分支
 
-準備好了嗎？下面的練習會用到 `range()` 和累加的技巧。
+如果情況不只兩種，可以用 `elif`(是 else if 的縮寫)接在中間，依序往下判斷：
+
+<pre><code>score = int(input())
+
+if score >= 90:
+    print("優")
+elif score >= 80:
+    print("甲")
+elif score >= 60:
+    print("及格")
+else:
+    print("不及格")</code></pre>
+
+執行順序是**由上往下**，一旦某個條件成立，就只執行那一塊，後面的 `elif`/`else` 全部跳過。所以就算 `score = 95` 同時滿足 `>= 90` 和 `>= 80`，也只會印出「優」，因為第一個成立的條件就已經結束了整個判斷。
+
+`elif` 可以接任意多個，`else` 一定要放在最後、而且最多只能有一個，也可以整段省略(代表「以上都不成立就什麼都不做」)。
+
+## 巢狀 if(if 裡面還有 if)
+
+條件判斷的區塊裡也可以再放一層 `if`，這叫**巢狀(nested)判斷**：
+
+<pre><code>age = int(input())
+has_ticket = input()
+
+if age < 18:
+    if has_ticket == "yes":
+        print("可以入場(未成年+有票)")
+    else:
+        print("需要先買票")
+else:
+    print("可以入場")</code></pre>
+
+巢狀判斷寫多層之後容易看不清楚，通常能用 `and`/`or` 合併成一層的話，會比較好讀：
+
+<pre><code>if age < 18 and has_ticket == "yes":
+    print("可以入場(未成年+有票)")
+elif age < 18:
+    print("需要先買票")
+else:
+    print("可以入場")</code></pre>
+
+## 用「多變數比大小」處理排序類的題目
+
+在還沒學到串列(list)之前，如果題目要你「找出三個數字中最大/最小的」或「把三個數字由小到大排好」，可以單純用好幾個變數搭配 `if/elif/else` 互相比較、交換來完成，不需要任何進階工具：
+
+<pre><code>a = int(input())
+b = int(input())
+c = int(input())
+
+# 先確保 a <= b
+if a > b:
+    a, b = b, a
+
+# 再把 c 放進正確的位置
+if c < a:
+    a, b, c = c, a, b
+elif c < b:
+    b, c = c, b
+
+print(a, b, c)</code></pre>
+
+`a, b = b, a` 是 Python 特有的寫法，可以同時交換兩個變數的值，不用另外借一個暫存變數。
+
+準備好了嗎？下面的練習會用到今天學的 `if/elif/else`，最後一題還會挑戰一題改編自 APCS 正式考題的三角形辨別題目。

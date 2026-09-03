@@ -1,0 +1,15 @@
+讀入一行英文句子，單字之間用空白隔開。請用 `.split()` 把句子拆成串列，依序輸出：
+
+1. 第一行：第一個單字
+2. 第二行：最後一個單字
+3. 第三行：這句話總共有幾個單字
+
+範例：如果輸入是
+
+<pre><code>The quick brown fox jumps</code></pre>
+
+輸出應該是：
+
+<pre><code>The
+jumps
+5</code></pre>

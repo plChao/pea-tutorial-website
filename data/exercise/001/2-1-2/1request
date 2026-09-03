@@ -1,9 +1,10 @@
-任務 1(暖身)：用 input() 讀入一個名字，印出「哈囉，X！」(X 換成讀到的名字)。
+程式執行到 `input()` 這一行時，會發生什麼事？
 
-範例：如果輸入是 APCS，輸出應該是：
-
-```
-哈囉，APCS！
-```
----STDIN---
-APCS
+<select1>A. 程式會直接結束</select1>
+<select2>B. 程式會暫停，等使用者輸入文字並按下 Enter</select2>
+<select3>C. 程式會跳過這一行，直接執行下一行</select3>
+<select4>D. 程式會出現錯誤</select4>
+<ans>B</ans>
+<detail>
+`input()` 會讓程式暫停在那一行，等使用者打字並按下 Enter 之後，才會把輸入的內容當成結果，繼續往下執行。
+</detail>

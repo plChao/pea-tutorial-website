@@ -1,0 +1,19 @@
+閱讀下面的程式碼：
+
+<pre><code>i = 0
+while i < 6:
+    i = i + 1
+    if i % 2 == 0:
+        continue
+    print(i)</code></pre>
+
+請問輸出是？
+
+<select1>A. 1 3 5(每個數字一行)</select1>
+<select2>B. 2 4 6(每個數字一行)</select2>
+<select3>C. 1 2 3 4 5 6(每個數字一行)</select3>
+<select4>D. 什麼都不印</select4>
+<ans>A</ans>
+<detail>
+每輪先讓 `i` 加 1，如果 `i` 是偶數就用 `continue` 跳過 `print(i)`，直接進入下一輪。所以只有 `i` 是奇數(1、3、5)的時候會被印出來。
+</detail>

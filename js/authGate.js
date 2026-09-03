@@ -1,10 +1,10 @@
 const UNLOCK_KEY = "apcs_tutor_unlocked_v1";
 
-// sha256("8sa1") — a fixed, throwaway password so `python -m http.server`
+// sha256("kk34") — a fixed, throwaway password so `python -m http.server`
 // on localhost unlocks out of the box with no setup. Only ever used as a
 // fallback on localhost (see below); the real deployed site always requires
 // js/auth-config.js and never falls back to this.
-const LOCAL_DEV_PASSWORD_HASH = "4db056778affb5b27befc5a9a40c47439c8a2cfe402bbb87223905f7f5a5e523";
+const LOCAL_DEV_PASSWORD_HASH = "977857c6549e3da2c96e93a8407f6a90b9107066077f7067082c368499434dda";
 const LOCAL_DEV_HOSTS = new Set(["localhost", "127.0.0.1", "[::1]"]);
 
 // js/auth-config.js is generated at deploy time from a GitHub Actions secret
@@ -20,7 +20,7 @@ try {
 } catch {
   if (LOCAL_DEV_HOSTS.has(location.hostname)) {
     PASSWORD_HASH = LOCAL_DEV_PASSWORD_HASH;
-    console.warn("auth-config.js missing — using local dev default password (8sa1).");
+    console.warn("auth-config.js missing — using local dev default password (kk34).");
   } else {
     console.warn("auth-config.js missing — access gate will not unlock.");
   }

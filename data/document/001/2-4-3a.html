@@ -1,0 +1,82 @@
+<script type="application/json" id="meta">
+{ "title": "for 迴圈" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-4-3(1／2)</p>
+<h1>for 迴圈</h1>
+
+如果要印出「1 到 5」，你可能會寫 5 次 `print()`。但如果是「1 到 10000」呢？總不能寫一萬行程式碼。這種「重複做同一件事很多次」的需求，就要靠**迴圈(loop)**。這章先介紹最常用的 `for` 迴圈。
+
+## range()：產生一串數字
+
+<pre><code>for i in range(5):
+    print(i)</code></pre>
+
+輸出：
+
+<pre><code>0
+1
+2
+3
+4</code></pre>
+
+`range(5)` 會依序產生 `0, 1, 2, 3, 4`(從 0 開始、**不包含** 5，總共 5 個數字)。`for i in range(5):` 的意思是「讓 `i` 依序等於 range 產生的每一個數字，每次都執行一次縮排區塊」。跟 `if` 一樣，`for` 後面也是冒號 `:` 加縮排區塊。
+
+`range()` 還有其他用法：
+
+<pre><code>range(5)         # 0, 1, 2, 3, 4
+range(2, 6)       # 2, 3, 4, 5(從 2 開始，不包含 6)
+range(0, 10, 2)   # 0, 2, 4, 6, 8(每次跳 2)
+range(5, 0, -1)   # 5, 4, 3, 2, 1(負的間隔，倒著數)</code></pre>
+
+## 用 for 迴圈累加
+
+迴圈最常見的用途是「重複做同一件事、順便累積結果」：
+
+<pre><code>total = 0
+for i in range(1, 6):
+    total = total + i
+print(total)   # 15，也就是 1+2+3+4+5</code></pre>
+
+`total = total + i` 的意思是「把 `total` 目前的值加上 `i`，再存回 `total`」。這種「一直累加」的變數，通常在迴圈開始前要先給一個初始值(這裡是 `0`)。
+
+## 用 for 迴圈走訪串列
+
+`for` 也可以直接走訪串列裡的每一個元素，不需要透過索引：
+
+<pre><code>fruits = ["蘋果", "香蕉", "橘子"]
+for fruit in fruits:
+    print(fruit)</code></pre>
+
+輸出：
+
+<pre><code>蘋果
+香蕉
+橘子</code></pre>
+
+如果同時需要「索引」跟「值」，可以搭配 `range(len(...))`：
+
+<pre><code>fruits = ["蘋果", "香蕉", "橘子"]
+for i in range(len(fruits)):
+    print(i, fruits[i])</code></pre>
+
+輸出：
+
+<pre><code>0 蘋果
+1 香蕉
+2 橘子</code></pre>
+
+## for 迴圈裡也能用 if
+
+迴圈跟條件判斷可以自由搭配，例如「數出串列裡有幾個偶數」：
+
+<pre><code>nums = [3, 8, 5, 12, 7, 4]
+count = 0
+for n in nums:
+    if n % 2 == 0:
+        count = count + 1
+print(count)   # 3</code></pre>
+
+這是非常常見的組合：**先給一個初始值的變數(像 `count`、`total`)，再用迴圈搭配 if 逐一檢查、累積結果**，之後會一直用到。
+
+準備好了嗎？下面的練習來練習 `range()`、累加，還有走訪串列。

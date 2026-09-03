@@ -1,0 +1,21 @@
+執行下面這段程式：
+
+<pre><code>print(5 ^ 2)</code></pre>
+
+會印出什麼？(提示：`5` 是 `101`，`2` 是 `010`)
+
+<select1>A. 7</select1>
+<select2>B. 0</select2>
+<select3>C. 3</select3>
+<select4>D. 10</select4>
+<ans>A</ans>
+<detail>
+`^`(XOR)是「不同才是 1」：
+
+<pre><code>  101
+^ 010
+-----
+  111</code></pre>
+
+`111` 換算成 10 進位是 `7`。
+</detail>

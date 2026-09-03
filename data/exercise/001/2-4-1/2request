@@ -1,9 +1,22 @@
-任務 2：讀入一個整數 n，用 for 迴圈計算 1 加到 n 的總和，印出總和。
+承上題的程式(把第一行改成 `score = 95`)：
 
-範例：如果輸入是 5，輸出應該是：
+<pre><code>score = 95
+if score >= 90:
+    print("優")
+elif score >= 80:
+    print("甲")
+elif score >= 60:
+    print("及格")
+else:
+    print("不及格")</code></pre>
 
-```
-15
-```
----STDIN---
-5
+`score = 95` 其實同時滿足 `>= 90`、`>= 80`、`>= 60` 三個條件，請問這段程式的輸出是？
+
+<select1>A. 只印出一行「優」</select1>
+<select2>B. 印出三行：優、甲、及格</select2>
+<select3>C. 只印出一行「甲」</select3>
+<select4>D. 什麼都不印</select4>
+<ans>A</ans>
+<detail>
+`if`/`elif`/`elif`/`else` 是由上往下依序檢查，只要有一個條件成立，就執行那一塊、然後整個判斷就結束了，不會再往下檢查剩下的 `elif`。所以即使 95 同時滿足好幾個條件，也只會印出第一個成立的「優」。
+</detail>

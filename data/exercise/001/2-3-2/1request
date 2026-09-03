@@ -1,0 +1,14 @@
+執行下面這段程式：
+
+<pre><code>print(5 == 5.0)</code></pre>
+
+會印出什麼？
+
+<select1>A. True</select1>
+<select2>B. False</select2>
+<select3>C. 5</select3>
+<select4>D. 程式會出錯</select4>
+<ans>A</ans>
+<detail>
+`==` 比較的是「值」是不是相等，不是型別。`5`(int)跟 `5.0`(float)數值相等，所以 `5 == 5.0` 是 `True`。
+</detail>

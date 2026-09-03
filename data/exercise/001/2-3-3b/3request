@@ -1,0 +1,14 @@
+執行下面這段程式：
+
+<pre><code>print(20 >> 2)</code></pre>
+
+會印出什麼？
+
+<select1>A. 40</select1>
+<select2>B. 10</select2>
+<select3>C. 5</select3>
+<select4>D. 80</select4>
+<ans>C</ans>
+<detail>
+右移 n 位等於整數除以 `2 ** n`。`20 >> 2` 就是 `20 // (2 ** 2) = 20 // 4 = 5`。
+</detail>

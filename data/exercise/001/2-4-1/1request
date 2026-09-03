@@ -1,12 +1,22 @@
-任務 1(暖身)：讀入一個整數 n，用 for 迴圈印出 1 到 n，每個數字一行。
+閱讀下面的程式碼：
 
-範例：如果輸入是 4，輸出應該是：
+<pre><code>score = 75
+if score >= 90:
+    print("優")
+elif score >= 80:
+    print("甲")
+elif score >= 60:
+    print("及格")
+else:
+    print("不及格")</code></pre>
 
-```
-1
-2
-3
-4
-```
----STDIN---
-4
+請問這段程式的輸出是？
+
+<select1>A. 優</select1>
+<select2>B. 甲</select2>
+<select3>C. 及格</select3>
+<select4>D. 不及格</select4>
+<ans>C</ans>
+<detail>
+`score = 75` 不滿足 `score >= 90`，也不滿足 `score >= 80`，但滿足 `score >= 60`，所以會執行第三個區塊，印出「及格」，後面的 `else` 就不會再執行了。
+</detail>

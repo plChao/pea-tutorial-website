@@ -5,56 +5,65 @@
 <p class="eyebrow">CHAPTER 2-1-1(2／2)</p>
 <h1>輸出(output)(2)</h1>
 
-上一小節你已經用過 `print()` 印出文字了。這一節要介紹 `print()` 的一個小細節：**`end` 參數**，它決定了每次 `print()` 印完之後要接什麼。
+上一篇學會了最基本的 `print()`，這篇要學兩個很實用的技巧：怎麼在字串裡打出換行、引號這種特殊符號，還有怎麼一次印出好幾個東西。
 
-## `print()` 預設會自動換行
+## 逸出字元(escape character)
 
-`print()` 每次呼叫，結尾都會自動幫你加上一個換行字元，所以連續呼叫兩次會分成兩行：
+如果想在字串裡放「換行」或「跳格」這種沒辦法直接打出來的東西，要用**逸出字元**，寫法是反斜線 `\` 加上一個字母：
 
-<pre><code>print("APCS")
-print("Advanced Placement Computer Science")</code></pre>
+| 逸出字元 | 意思 |
+|:---:|:---|
+| `\n` | 換行(newline) |
+| `\t` | 跳格(tab，一段空白) |
+| `\"` | 印出雙引號本身 |
+| `\\` | 印出反斜線本身 |
+
+<pre><code>print("第一行\n第二行")
+print("姓名：\t小明")
+print("他說：\"你好\"")</code></pre>
 
 輸出：
 
-<pre><code>APCS
-Advanced Placement Computer Science</code></pre>
+<pre><code>第一行
+第二行
+姓名：	小明
+他說："你好"</code></pre>
 
-這是因為 `print()` 其實還有一個藏起來的參數，預設值是 `end="\n"`(`\n` 就是換行字元)。上面兩行程式碼其實等同於：
+<p class="placeholder-note">小技巧：如果字串裡要放雙引號，也可以直接把整個字串改用單引號包起來，例如 `print('他說："你好"')`，就不用寫 `\"` 了。</p>
 
-<pre><code>print("APCS", end="\n")
-print("Advanced Placement Computer Science", end="\n")</code></pre>
+## 一次印出多個東西
 
-## 用 `end` 參數改變結尾
+`print()` 裡面可以放好幾個值，用逗號 `,` 隔開，Python 會自動在每個值中間補一個空白：
 
-如果不想換行，可以把 `end` 改成別的字串，例如空字串 `""`(完全不接東西)或一個空白 `" "`：
+<pre><code>print("分數：", 100)</code></pre>
 
-<pre><code>print("Hello", end="")
-print("APCS")</code></pre>
+輸出：
 
-輸出會變成同一行：
+<pre><code>分數： 100</code></pre>
 
-<pre><code>HelloAPCS</code></pre>
+這個功能很常拿來把好幾段文字跟數字組合成一行輸出，之後我們會常常用到。
 
-如果改用 `end=" "`，兩個字之間就會多一個空白：
+## 調整分隔符號：sep
+
+如果不想要預設的空白分隔，可以用 `sep=` 指定要用什麼符號隔開：
+
+<pre><code>print("2026", "09", "03", sep="/")</code></pre>
+
+輸出：
+
+<pre><code>2026/09/03</code></pre>
+
+## 調整結尾符號：end
+
+`print()` 印完內容後，預設會自動換行(相當於幫你加了 `\n`)。如果不想換行，可以用 `end=` 指定結尾要接什麼：
 
 <pre><code>print("Hello", end=" ")
-print("APCS")</code></pre>
+print("World")</code></pre>
 
 輸出：
 
-<pre><code>Hello APCS</code></pre>
+<pre><code>Hello World</code></pre>
 
-## 常見用法：在同一行印出多個值
+因為第一個 `print()` 的結尾被改成空白而不是換行，所以兩次 `print()` 的內容接在同一行。
 
-`end` 最常見的用法，是搭配迴圈(loop)，把好幾個值印在同一行、用空白隔開：
-
-<pre><code>for i in range(1, 4):
-    print(i, end=" ")</code></pre>
-
-輸出(同一行，數字間用空白分開，結尾沒有換行)：
-
-<pre><code>1 2 3 </code></pre>
-
-<p class="placeholder-note">小提醒：這種「結尾沒有換行」的輸出，判題時一樣會正確被抓到，不用擔心少了最後的換行會被當成程式沒有執行完。</p>
-
-準備好了嗎？下面有練習，用 `print()` 跟 `end` 參數控制輸出格式。
+準備好了嗎？下面有練習題，練習逸出字元跟 `print()` 的進階用法。

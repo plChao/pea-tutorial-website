@@ -1,0 +1,15 @@
+下面哪一個是合法(可以使用)的 Python 變數名稱？
+
+<select1>A. 2score</select1>
+<select2>B. my score</select2>
+<select3>C. my_score</select3>
+<select4>D. my-score</select4>
+<ans>C</ans>
+<detail>
+變數名稱只能用英文字母、數字、底線 `_`，而且不能用數字開頭。
+
+- A 用數字 `2` 開頭，不合法。
+- B 中間有空白，不合法。
+- D 用了 `-`(減號)，不合法。
+- C 只用了英文字母、底線，且沒有用數字開頭，合法。
+</detail>

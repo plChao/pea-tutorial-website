@@ -1,0 +1,82 @@
+<script type="application/json" id="meta">
+{ "title": "邏輯運算(logical operation)" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-3-2</p>
+<h1>邏輯運算(logical operation)</h1>
+
+上一章學了數字要怎麼運算，這一章要學怎麼「比較」兩個值、以及怎麼把好幾個比較結果組合起來。這些運算的結果，都會是你之前學過的 `bool` 型別——也就是 `True` 或 `False`。
+
+## 比較運算子
+
+<pre><code>print(3 > 2)
+print(3 < 2)
+print(3 == 2)
+print(3 != 2)
+print(3 >= 3)
+print(3 <= 2)</code></pre>
+
+輸出：
+
+<pre><code>True
+False
+False
+True
+True
+False</code></pre>
+
+比較運算子總共有這六個：
+
+| 運算子 | 意義 |
+|:---:|:---|
+| `==` | 等於 |
+| `!=` | 不等於 |
+| `>` | 大於 |
+| `<` | 小於 |
+| `>=` | 大於等於 |
+| `<=` | 小於等於 |
+
+<p class="placeholder-note">特別注意：判斷「是否相等」要用兩個等號 `==`，一個等號 `=` 是「賦值」(把值存進變數)，這兩個意思完全不同，寫錯是初學者最常見的錯誤之一。</p>
+
+字串也可以用 `==` 比較是否完全相同：`"cat" == "cat"` 是 `True`，`"cat" == "dog"` 是 `False`。
+
+## 邏輯運算子：and、or、not
+
+如果想要同時檢查好幾個條件，可以用邏輯運算子把多個比較結果組合起來：
+
+| 運算子 | 意義 | 範例 |
+|:---:|:---|:---|
+| `and` | 兩邊都成立才是 `True` | `3 > 2 and 5 > 4` → `True` |
+| `or` | 只要有一邊成立就是 `True` | `3 > 2 or 5 < 4` → `True` |
+| `not` | 把結果反過來 | `not (3 > 2)` → `False` |
+
+<pre><code>score = 85
+print(score >= 60 and score <= 100)
+print(score < 60 or score > 100)
+print(not (score < 60))</code></pre>
+
+輸出：
+
+<pre><code>True
+False
+True</code></pre>
+
+`and` 是「兩邊都要對」，只要有一邊是 `False`，結果就是 `False`。`or` 是「只要有一邊對就好」，兩邊都 `False` 結果才會是 `False`。`not` 則是單獨對一個值取反。
+
+## 直接印出比較/邏輯運算的結果
+
+要注意，比較運算子跟邏輯運算子算出來的**就是 `True` 或 `False` 這個值本身**，可以直接印出來，不需要額外的語法：
+
+<pre><code>a = 10
+b = 20
+print(a == b)
+print(a < b and b < 100)</code></pre>
+
+輸出：
+
+<pre><code>False
+True</code></pre>
+
+這一招在還沒學到「條件判斷」之前很好用——之後你會學到用 `if` 依照條件做不同的事，但現在只要記得：**比較跟邏輯運算的結果就是 `True`／`False`，可以直接印出來看**。
+
+準備好了嗎？下面有練習可以確認你搞懂 `True`／`False` 是怎麼算出來的。

@@ -1,0 +1,18 @@
+閱讀下面的程式碼：
+
+<pre><code>i = 1
+while i <= 3:
+    print(i)
+    i = i + 1
+print("結束")</code></pre>
+
+請問輸出是？
+
+<select1>A. 1 2 3(每個數字一行)，接著印出「結束」</select1>
+<select2>B. 1 2 3 4(每個數字一行)，接著印出「結束」</select2>
+<select3>C. 只印出「結束」</select3>
+<select4>D. 程式會無窮迴圈，永遠不會印出「結束」</select4>
+<ans>A</ans>
+<detail>
+`i` 從 1 開始，只要 `i <= 3` 就印出 `i` 再加 1。依序印出 1、2、3，直到 `i` 變成 4 時 `4 <= 3` 不成立，離開迴圈，最後印出「結束」。
+</detail>

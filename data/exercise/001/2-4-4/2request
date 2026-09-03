@@ -1,0 +1,17 @@
+閱讀下面的程式碼：
+
+<pre><code>rows = 2
+cols = 3
+grid = [[0] * cols for _ in range(rows)]
+print(grid)</code></pre>
+
+請問輸出是？
+
+<select1>A. [0, 0, 0, 0, 0, 0]</select1>
+<select2>B. [[0, 0, 0], [0, 0, 0]]</select2>
+<select3>C. [[0, 0], [0, 0], [0, 0]]</select3>
+<select4>D. [0, 0]</select4>
+<ans>B</ans>
+<detail>
+`[0] * cols` 產生一列長度為 3、內容全是 0 的串列 `[0, 0, 0]`；`for _ in range(rows)` 重複做 2 次，所以最後是一個 2 列、每列 3 個 0 的二維陣列：`[[0, 0, 0], [0, 0, 0]]`。
+</detail>

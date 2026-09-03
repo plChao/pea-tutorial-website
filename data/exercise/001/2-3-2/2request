@@ -1,0 +1,14 @@
+執行下面這段程式：
+
+<pre><code>print(3 > 2 and 2 > 3)</code></pre>
+
+會印出什麼？
+
+<select1>A. True</select1>
+<select2>B. False</select2>
+<select3>C. True False</select3>
+<select4>D. 程式會出錯</select4>
+<ans>B</ans>
+<detail>
+`and` 要兩邊都成立才是 `True`。`3 > 2` 是 `True`，但 `2 > 3` 是 `False`，兩邊有一個是 `False`，所以整體是 `False`。
+</detail>
