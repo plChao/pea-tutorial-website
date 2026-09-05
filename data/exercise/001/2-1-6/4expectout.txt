@@ -1,0 +1,2 @@
+['apple', 'bread', 'egg', 'milk']
+['apple', 'bread', 'egg']

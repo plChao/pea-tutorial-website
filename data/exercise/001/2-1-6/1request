@@ -1,0 +1,17 @@
+閱讀下面的程式碼：
+
+<pre><code>a = "hello"
+b = a
+a = "world"
+print(b)</code></pre>
+
+請問輸出是？
+
+<select1>A. hello</select1>
+<select2>B. world</select2>
+<select3>C. helloworld</select3>
+<select4>D. 程式會出錯</select4>
+<ans>A</ans>
+<detail>
+字串是不可變(immutable)的。`a = "world"` 不是修改原本的字串，而是讓 `a` 改指向一個全新的字串物件。`b` 從頭到尾都還指向原本的 `"hello"`，完全沒被影響，所以印出 `hello`。
+</detail>

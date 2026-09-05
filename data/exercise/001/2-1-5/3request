@@ -1,0 +1,10 @@
+已知 `d = {"apple": 3, "banana": 5}`，下面哪一行程式碼會輸出 `False`？
+
+<select1>A. print("apple" in d)</select1>
+<select2>B. print("banana" in d)</select2>
+<select3>C. print(3 in d)</select3>
+<select4>D. print(d.get("cherry", 0))</select4>
+<ans>C</ans>
+<detail>
+字典的 `in` 檢查的是 **key**，不是 value。`"apple"`、`"banana"` 都是 d 的 key，所以 A、B 印出 `True`；`3` 是 value 不是 key，所以 C 印出 `False`。D 選項因為 `"cherry"` 不存在，`.get()` 會回傳預設值 `0`，印出的是 `0` 不是 `False`。
+</detail>

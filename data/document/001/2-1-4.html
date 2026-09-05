@@ -2,7 +2,7 @@
 { "title": "串列(list)" }
 </script>
 
-<p class="eyebrow">CHAPTER 2-4-2</p>
+<p class="eyebrow">CHAPTER 2-1-4</p>
 <h1>串列(list)</h1>
 
 之前每個變數只能存一個值，例如 `score = 85`。但如果要存「全班 40 個人的分數」，難道要開 40 個變數 `score1, score2, ..., score40` 嗎？當然不用——Python 提供了**串列(list)**，可以用一個變數存一整排的資料。
@@ -43,7 +43,7 @@ print(nums[-2])   # 40</code></pre>
 <pre><code>nums = [10, 20, 30, 40, 50]
 print(len(nums))   # 5</code></pre>
 
-`len()` 也適用於字串，例如 `len("hello")` 是 5。有了 `len()`，`nums[len(nums) - 1]` 就等於 `nums[-1]`(不過通常直接用 `-1` 更方便)。
+`len()` 也適用於字串，例如 `len("hello")` 是 5。
 
 ## 切片(slice)：一次取出一段
 
@@ -60,14 +60,11 @@ print(nums[::-1])    # [50, 40, 30, 20, 10]，反過來排</code></pre>
 
 ## in：檢查有沒有出現
 
-用 `in` 可以檢查某個值是否存在串列裡，結果是 `True`/`False`：
+用 `in` 可以檢查某個值是否存在串列裡，結果直接是 `True`/`False`，可以直接印出來看(之後學到 `if` 之後，就可以用這個結果來做不同的事)：
 
 <pre><code>nums = [10, 20, 30]
 print(20 in nums)   # True
-print(99 in nums)   # False
-
-if 20 in nums:
-    print("找到了")</code></pre>
+print(99 in nums)   # False</code></pre>
 
 ## 修改串列的內容
 
@@ -98,8 +95,8 @@ parts = line.split()     # ['3', '4', '5']，注意還是字串
 a = int(parts[0])
 b = int(parts[1])
 c = int(parts[2])
-print(a + b + c)          # 12</code></pre>
+print(a, b, c)             # 3 4 5</code></pre>
 
-`.split()` 拆出來的每一項都還是**字串**，如果要當數字運算，別忘了用 `int()`/`float()` 轉換。
+`.split()` 拆出來的每一項都還是**字串**，如果之後要當數字做運算，別忘了用 `int()`/`float()` 轉換。
 
 準備好了嗎？下面的練習會用到 `[ ]`、索引、切片、`len()`、`in` 和 `.split()`。

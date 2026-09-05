@@ -1,0 +1,22 @@
+已知程式裡已經寫好一個庫存字典 `stock = {"apple": 10, "banana": 5, "cherry": 0}`。請讀入一行商品名稱，輸出：
+
+1. 第一行：這個商品名稱有沒有在字典裡(用 `in`，直接印出 `True`/`False`)
+2. 第二行：這個商品的庫存數量(用 `.get()`，如果商品不存在就當作 0)
+
+範例：如果輸入是
+
+<pre><code>banana</code></pre>
+
+輸出應該是：
+
+<pre><code>True
+5</code></pre>
+
+再舉一個例子，如果輸入是
+
+<pre><code>durian</code></pre>
+
+輸出應該是：
+
+<pre><code>False
+0</code></pre>

@@ -1,0 +1,10 @@
+已知 `d = {"a": 1, "b": 2, "c": 3}`，請問 `d["b"]` 的值是？
+
+<select1>A. "b"</select1>
+<select2>B. 1</select2>
+<select3>C. 2</select3>
+<select4>D. 3</select4>
+<ans>C</ans>
+<detail>
+`d["b"]` 是用 key `"b"` 去查它對應的 value，`"b"` 對應的 value 是 2。
+</detail>

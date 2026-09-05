@@ -1,0 +1,15 @@
+讀入一行購物車內的商品名稱，中間用空白隔開。請完成以下步驟：
+
+1. 把讀入的內容用 `.split()` 存進 `cart`
+2. 用 `[:]` 複製一份**獨立**的備份，存進 `cart_backup`(不能直接用 `=`，那樣兩個變數會指向同一個串列)
+3. 用 `.append("milk")` 把 `"milk"` 加進 `cart`
+4. 依序印出 `cart` 和 `cart_backup`，驗證 `cart_backup` 沒有被 `milk` 影響到
+
+範例：如果輸入是
+
+<pre><code>apple bread egg</code></pre>
+
+輸出應該是：
+
+<pre><code>['apple', 'bread', 'egg', 'milk']
+['apple', 'bread', 'egg']</code></pre>

@@ -1,17 +1,16 @@
-閱讀下面的程式碼：
+承上題，如果改用下面的寫法建立 rows：
 
-<pre><code>rows = 2
-cols = 3
-grid = [[0] * cols for _ in range(rows)]
-print(grid)</code></pre>
+<pre><code>rows = [[0] * 2 for _ in range(3)]
+rows[1][0] = 9
+print(rows)</code></pre>
 
 請問輸出是？
 
-<select1>A. [0, 0, 0, 0, 0, 0]</select1>
-<select2>B. [[0, 0, 0], [0, 0, 0]]</select2>
+<select1>A. [[0, 0], [9, 0], [0, 0]]</select1>
+<select2>B. [[9, 0], [9, 0], [9, 0]]</select2>
 <select3>C. [[0, 0], [0, 0], [0, 0]]</select3>
-<select4>D. [0, 0]</select4>
-<ans>B</ans>
+<select4>D. 程式會產生錯誤</select4>
+<ans>A</ans>
 <detail>
-`[0] * cols` 產生一列長度為 3、內容全是 0 的串列 `[0, 0, 0]`；`for _ in range(rows)` 重複做 2 次，所以最後是一個 2 列、每列 3 個 0 的二維陣列：`[[0, 0, 0], [0, 0, 0]]`。
+`[[0] * 2 for _ in range(3)]` 每一輪迴圈都會重新建立一個獨立的 `[0, 0]` 串列，三列彼此不是同一個物件。所以只改 `rows[1][0]`，只有第 1 列會變成 `[9, 0]`，其他列維持 `[0, 0]`。
 </detail>

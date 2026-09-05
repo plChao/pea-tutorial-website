@@ -1,0 +1,71 @@
+<script type="application/json" id="meta">
+{ "title": "可變與不可變(mutable / immutable)" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-1-6</p>
+<h1>可變與不可變(mutable / immutable)</h1>
+
+前兩章學了串列(list)跟字典(dict)，會發現它們建立之後**還可以修改內容**(`nums.append(...)`、`d["key"] = ...`)。但數字、字串一旦建立，是**不能**修改內容的——這一章就來搞懂這個差別，因為它會直接影響到「兩個變數是不是同一份資料」這件事。
+
+## id()：每個物件的身分證字號
+
+Python 裡每個物件(不管是數字、字串、串列……)在記憶體裡都有一個獨一無二的位置，可以用內建的 `id()` 函式看到：
+
+<pre><code>a = "hello"
+print(id(a))   # 例如 140712834567856(每次執行都可能不一樣)</code></pre>
+
+## is：檢查兩個變數是不是「同一個」物件
+
+`is` 是一個運算子，用來檢查兩個變數的 `id()` 是不是一樣，也就是是不是指向同一個物件，結果直接是 `True`/`False`：
+
+<pre><code>a = "hello"
+b = a
+print(a is b)   # True，b 目前跟 a 指向同一個字串物件</code></pre>
+
+<p class="placeholder-note">注意：`is` 檢查的是「是不是同一個物件」，跟之後會學到的 `==`(檢查「值是否相等」)是不一樣的概念。</p>
+
+## 不可變(immutable)：str / int / float / bool
+
+字串、數字這些型別建立之後**不能被原地修改**。看起來像是在「改變」一個字串的程式碼，其實是讓變數重新指向一個**全新建立**的物件：
+
+<pre><code>a = "hello"
+b = a
+print(a is b)   # True，一開始指向同一個物件
+
+a = "world"      # a 重新指向一個新建立的字串物件
+print(a is b)     # False，a 跟 b 已經不是同一個物件了
+print(b)            # hello，b 完全沒有被影響到</code></pre>
+
+`a = "world"` 並不是把 `"hello"` 這個字串改成 `"world"`，而是**另外建立**一個新的字串物件 `"world"`，然後讓 `a` 改指向它。原本 `"hello"` 那個物件還在，`b` 還是指向它，所以 `b` 的值完全沒變。
+
+## 可變(mutable)：list / dict
+
+串列、字典就不一樣了，它們支援「原地修改」——物件本身沒變，但內容變了：
+
+<pre><code>nums_a = [1, 2, 3]
+nums_b = nums_a       # 只是讓 nums_b 也指向同一個串列，不是複製一份！
+print(nums_a is nums_b)   # True
+
+nums_b.append(4)        # 直接修改 nums_b 指向的那個串列
+print(nums_a)              # [1, 2, 3, 4] —— nums_a 也被改到了！
+print(nums_a is nums_b)    # True，因為自始至終都是同一個串列</code></pre>
+
+這是初學者很容易踩到的陷阱：`nums_b = nums_a` **不會**幫你複製一份新的串列，只是讓兩個名字指向同一份資料。之後不管透過 `nums_a` 還是 `nums_b` 修改，兩邊看到的都是同一份、都會一起變。
+
+## 想要真正複製一份，該怎麼做？
+
+如果真的想要一份「內容一樣，但彼此獨立」的新串列，可以用切片 `[:]` 或 `list(...)`：
+
+<pre><code>nums_a = [1, 2, 3]
+nums_c = nums_a[:]        # 真正複製一份新的串列
+print(nums_a is nums_c)     # False，是兩個不同的物件
+
+nums_c.append(99)
+print(nums_a)                 # [1, 2, 3]，這次沒有被影響到
+print(nums_c)                  # [1, 2, 3, 99]</code></pre>
+
+字典也是一樣的道理，`d2 = d1` 只是讓兩個名字指向同一個字典，要複製要用 `d2 = dict(d1)`。
+
+<p class="placeholder-note">口訣：看到 <code>b = a</code>，先問自己 a 是可變(list/dict)還是不可變(str/int/float/bool)。不可變的話完全不用擔心；可變的話，b 只是 a 的另一個名字，改 b 就是改 a。</p>
+
+準備好了嗎？下面的練習會用到 `id()`、`is`，以及 `[:]` 複製串列的技巧。

@@ -1,24 +1,32 @@
-閱讀下面的程式碼：
+下面的程式想建立一個 r×c、全部是 0 的網格，套用 k 個更新(格式：`row col value`)，最後輸出網格(每列一行，數字之間用空白隔開)。但程式碼裡有一個 bug，會導致更新一列時，其他列也跟著被改到。請找出問題並修正它。
 
-<pre><code>grid = [
-    [1, 2],
-    [3, 4],
-    [5, 6]
-]
+<pre><code>first_line = input().split()
+r = int(first_line[0])
+c = int(first_line[1])
 
-total = 0
-for r in range(len(grid)):
-    for c in range(len(grid[r])):
-        total = total + grid[r][c]
-print(total)</code></pre>
+grid = [[0] * c] * r   # 這一行有問題
 
-請問輸出是？
+k = int(input())
+for i in range(k):
+    parts = input().split()
+    row = int(parts[0])
+    col = int(parts[1])
+    val = int(parts[2])
+    grid[row][col] = val
 
-<select1>A. 6</select1>
-<select2>B. 15</select2>
-<select3>C. 21</select3>
-<select4>D. 3</select4>
-<ans>C</ans>
-<detail>
-外層迴圈跑每一列(共 3 列)，內層迴圈跑該列的每一格，把所有格子的值都加進 `total`。全部數字是 1+2+3+4+5+6 = 21。
-</detail>
+for i in range(r):
+    for j in range(c):
+        print(grid[i][j], end=" ")
+    print()</code></pre>
+
+範例：如果輸入是
+
+<pre><code>2 3
+2
+0 1 5
+1 2 9</code></pre>
+
+輸出應該是：
+
+<pre><code>0 5 0
+0 0 9</code></pre>

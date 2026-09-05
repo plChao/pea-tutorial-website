@@ -1,0 +1,76 @@
+<script type="application/json" id="meta">
+{ "title": "字典(dict)" }
+</script>
+
+<p class="eyebrow">CHAPTER 2-1-5</p>
+<h1>字典(dict)</h1>
+
+上一章的串列(list)是用**位置(索引)**取資料，`nums[0]`、`nums[1]`……但有時候我們想用一個更有意義的名字去查資料，例如「查詢某個人的分數」、「查詢某個單字的中文意思」，這時候位置就沒有意義了。這種「用一個 key 查一個 value」的資料結構，就是**字典(dict)**。
+
+## 建立字典
+
+用大括號 `{ }` 把資料包起來，每一項寫成 `key: value`，中間用逗號分隔：
+
+<pre><code>scores = {"小明": 85, "小華": 92, "小美": 78}
+print(scores)</code></pre>
+
+輸出：
+
+<pre><code>{'小明': 85, '小華': 92, '小美': 78}</code></pre>
+
+空字典寫成 `{}`。key 通常用字串或數字，value 可以是任何型別，甚至是一個串列。
+
+## 用 key 取出 value
+
+跟串列很像，也是用中括號，只是裡面放 key 而不是位置：
+
+<pre><code>scores = {"小明": 85, "小華": 92}
+print(scores["小明"])   # 85
+print(scores["小華"])   # 92</code></pre>
+
+如果查詢一個不存在的 key(例如 `scores["小李"]`)，程式會直接出錯(`KeyError`)。
+
+## 新增／修改：直接指定 key 的值
+
+字典建立之後可以修改，寫法跟改串列元素很像：
+
+<pre><code>scores = {"小明": 85, "小華": 92}
+
+scores["小明"] = 100      # "小明" 已存在 → 修改
+print(scores)              # {'小明': 100, '小華': 92}
+
+scores["小美"] = 78        # "小美" 不存在 → 新增一筆
+print(scores)              # {'小明': 100, '小華': 92, '小美': 78}</code></pre>
+
+Python 會自動判斷：key 已經存在就更新，不存在就新增，寫法完全一樣。
+
+## 刪除一筆資料：del
+
+<pre><code>scores = {"小明": 100, "小華": 92, "小美": 78}
+del scores["小華"]
+print(scores)   # {'小明': 100, '小美': 78}</code></pre>
+
+## in：檢查某個 key 存不存在
+
+跟串列的 `in` 一樣，結果直接是 `True`/`False`，可以直接印出來看。要注意的是，字典的 `in` 檢查的是 **key**，不是 value：
+
+<pre><code>scores = {"小明": 100, "小華": 92}
+print("小明" in scores)   # True，"小明" 是一個 key
+print(100 in scores)       # False，100 是 value 不是 key</code></pre>
+
+## len()：字典有幾筆資料
+
+<pre><code>scores = {"小明": 100, "小華": 92, "小美": 78}
+print(len(scores))   # 3</code></pre>
+
+## get()：安全地取值，key 不存在也不會出錯
+
+前面提到直接用 `scores["小李"]` 查一個不存在的 key 會出錯。如果不確定 key 存不存在，可以用 `.get(key, 預設值)`，key 不存在時就回傳你指定的預設值，而不是讓程式崩潰：
+
+<pre><code>scores = {"小明": 100, "小華": 92}
+print(scores.get("小明", 0))   # 100，key 存在
+print(scores.get("小李", 0))   # 0，key 不存在，回傳預設值 0</code></pre>
+
+<p class="placeholder-note">小提醒：串列是「有順序、用位置查」，字典是「用 key 查」，兩個是互補的工具，之後看題目比較適合哪一種就用哪一種。</p>
+
+準備好了嗎？下面的練習會用到 `{ }`、用 key 存取、`del`、`in`、`len()` 和 `.get()`。

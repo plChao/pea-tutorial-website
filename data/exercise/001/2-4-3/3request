@@ -1,0 +1,24 @@
+閱讀下面的程式碼：
+
+<pre><code>grid = [
+    [1, 2],
+    [3, 4],
+    [5, 6]
+]
+
+total = 0
+for r in range(len(grid)):
+    for c in range(len(grid[r])):
+        total = total + grid[r][c]
+print(total)</code></pre>
+
+請問輸出是？
+
+<select1>A. 6</select1>
+<select2>B. 15</select2>
+<select3>C. 21</select3>
+<select4>D. 3</select4>
+<ans>C</ans>
+<detail>
+外層迴圈跑每一列(共 3 列)，內層迴圈跑該列的每一格，把所有格子的值都加進 `total`。全部數字是 1+2+3+4+5+6 = 21。
+</detail>

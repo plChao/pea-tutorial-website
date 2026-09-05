@@ -1,0 +1,17 @@
+閱讀下面的程式碼：
+
+<pre><code>nums_a = [1, 2, 3]
+nums_b = nums_a
+nums_b.append(4)
+print(nums_a)</code></pre>
+
+請問輸出是？
+
+<select1>A. [1, 2, 3]</select1>
+<select2>B. [1, 2, 3, 4]</select2>
+<select3>C. [4]</select3>
+<select4>D. 程式會出錯</select4>
+<ans>B</ans>
+<detail>
+串列是可變(mutable)的。`nums_b = nums_a` 只是讓 `nums_b` 也指向同一個串列，並不是複製一份。透過 `nums_b.append(4)` 修改的其實是那個唯一的串列，所以透過 `nums_a` 看到的也是 `[1, 2, 3, 4]`。
+</detail>

@@ -1,0 +1,13 @@
+讀入一行程式語言名稱，中間用空白隔開。請用 `.split()` 拆成串列，輸出：
+
+1. 第一行：把串列反過來排(用切片 `[::-1]`)
+2. 第二行：這個串列裡有沒有出現 `"Python"`(用 `in`，直接印出 `True`/`False`)
+
+範例：如果輸入是
+
+<pre><code>C Java Python Go</code></pre>
+
+輸出應該是：
+
+<pre><code>['Go', 'Python', 'Java', 'C']
+True</code></pre>
