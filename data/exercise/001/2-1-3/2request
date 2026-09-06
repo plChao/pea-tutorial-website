@@ -4,9 +4,9 @@
 
 輸出會是什麼？
 
-<select1>A. &lt;class 'int'&gt;</select1>
-<select2>B. &lt;class 'str'&gt;</select2>
-<select3>C. &lt;class 'float'&gt;</select3>
+<select1>A. <class 'int'> </select1>
+<select2>B. <class 'str'> </select2>
+<select3>C. <class 'float'> </select3>
 <select4>D. 18</select4>
 <ans>B</ans>
 <detail>
