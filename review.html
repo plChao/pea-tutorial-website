@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>複習整理 | APCS 教學網站</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="stylesheet" href="css/styles.css" />
+<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+</head>
+<body class="lesson-page-body">
+  <header class="topbar">
+    <button id="menuBtn" class="icon-btn" aria-label="開啟大章節選單">☰</button>
+    <div class="topbar__title">
+      <span id="reviewTitle">載入中…</span>
+    </div>
+    <a href="index.html" class="topbar__home">回首頁</a>
+  </header>
+
+  <aside id="sidebar" class="sidebar" hidden>
+    <div class="sidebar__header">
+      <span id="sidebarCourseTitle">複習整理</span>
+      <button id="closeSidebar" aria-label="關閉選單">✕</button>
+    </div>
+    <ol id="sectionList" class="chapter-list"></ol>
+  </aside>
+  <div id="sidebarOverlay" class="sidebar-overlay" hidden></div>
+
+  <main class="review-workspace">
+    <div id="reviewContent" class="lesson-content review-content">整理內容載入中…</div>
+    <div id="relatedChapters" class="related-chapters"></div>
+  </main>
+
+  <footer class="lesson-footer">
+    <div class="lesson-footer__spacer"></div>
+    <div class="lesson-footer__progress" id="footerProgress"></div>
+    <div class="lesson-footer__nav">
+      <button id="footerPrevBtn" class="btn btn--ghost" disabled>‹ 上一個大章</button>
+      <button id="footerNextBtn" class="btn btn--primary" disabled>下一個大章 ›</button>
+    </div>
+  </footer>
+
+  <script type="module" src="js/pages/review.js"></script>
+</body>
+</html>

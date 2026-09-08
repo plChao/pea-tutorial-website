@@ -126,7 +126,12 @@ function renderSidebarAndTopbar() {
     if (sectionTitle && sectionPrefix !== lastSectionPrefix) {
       const sectionLi = document.createElement("li");
       sectionLi.className = "chapter-list__section-header";
-      sectionLi.textContent = `${sectionPrefix} ${sectionTitle}`;
+      const sectionLink = document.createElement("a");
+      sectionLink.href = `review.html?course=${courseId}&section=${sectionPrefix}`;
+      sectionLink.className = "chapter-list__section-header-link";
+      sectionLink.title = "查看本大章的複習整理";
+      sectionLink.textContent = `${sectionPrefix} ${sectionTitle}`;
+      sectionLi.appendChild(sectionLink);
       els.chapterList.appendChild(sectionLi);
     }
     lastSectionPrefix = sectionPrefix;

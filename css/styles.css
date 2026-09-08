@@ -130,13 +130,39 @@ a { color: var(--accent-2); }
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
-  text-decoration: none;
-  color: inherit;
   transition: transform 0.12s ease, border-color 0.12s ease;
 }
 .course-card:hover { transform: translateY(-2px); border-color: var(--accent); }
+.course-card__link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+}
 .course-card h3 { margin: 0; font-size: 1.05rem; }
 .course-card p { margin: 0; color: var(--text-dim); font-size: 0.85rem; line-height: 1.5; }
+
+.course-card__review {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 0.6rem;
+  margin-top: 0.2rem;
+  border-top: 1px solid var(--border);
+}
+.course-card__review-label { font-size: 0.75rem; color: var(--text-dim); margin-right: 0.1rem; }
+.review-pill {
+  font-size: 0.75rem;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  text-decoration: none;
+  background: var(--bg-darker);
+}
+.review-pill:hover { color: var(--accent-2); border-color: var(--accent-2); }
 
 .progress-bar {
   width: 100%;
@@ -256,10 +282,24 @@ a { color: var(--accent-2); }
 
 .chapter-list__section-header {
   padding: 0.9rem 0.75rem 0.3rem;
+}
+/* Beats the general ".chapter-list li a" rule (padding/flex/hover-bg meant for
+   real chapter links) on specificity, so the section header keeps looking
+   like a header instead of a nav item, while still being clickable. */
+.chapter-list li a.chapter-list__section-header-link {
+  display: block;
+  padding: 0;
+  border-radius: 0;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--text-dim);
+  text-decoration: none;
+}
+.chapter-list li a.chapter-list__section-header-link:hover {
+  background: none;
+  color: var(--accent-2);
+  text-decoration: underline;
 }
 
 .sidebar-overlay {
@@ -339,6 +379,29 @@ a { color: var(--accent-2); }
 }
 .problem-card__label { font-weight: 700; margin-top: 0; }
 .placeholder-note { color: #8a8f98; font-style: italic; }
+
+/* ================= REVIEW (CHEATSHEET) PAGE ================= */
+.review-workspace {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  background: var(--lesson-bg);
+  color: var(--lesson-text);
+}
+.review-content { max-width: 760px; margin: 0 auto; }
+.related-chapters { max-width: 760px; margin: 0 auto; padding: 0.5rem 1.6rem 2rem; }
+.related-chapters__label { font-size: 0.8rem; font-weight: 700; color: #8a8f98; margin-bottom: 0.6rem; }
+.related-chapters__list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.related-chapters__pill {
+  font-size: 0.82rem;
+  padding: 0.35em 0.85em;
+  border-radius: 999px;
+  border: 1px solid #e3e5e9;
+  background: #fafbfc;
+  color: #0969da;
+  text-decoration: none;
+}
+.related-chapters__pill:hover { background: #eef6ff; }
 
 .task-panel {
   border-top: 2px solid var(--border);

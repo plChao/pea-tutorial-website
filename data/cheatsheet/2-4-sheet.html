@@ -1,0 +1,76 @@
+<script type="application/json" id="meta">
+{ "title": "2-4 流程控制 複習整理" }
+</script>
+
+<p class="eyebrow">複習整理</p>
+<h1>2-4 流程控制</h1>
+
+這頁把 2-4 這個大章節的重點濃縮成一張複習表，每個小節後面都有連結可以直接跳回原章節複習細節。
+
+## 條件判斷 if/elif/else
+
+- `if 條件:` 後面接冒號，下一行**縮排**才算在區塊裡；Python 用縮排決定範圍，不是大括號。
+- `else` 不用寫條件，代表「上面都不成立」；`if`/`else` 只會擇一執行。
+- `elif` 可以接任意多個，由上往下判斷，**第一個成立的條件執行完就結束**，後面全部跳過。
+- 可以巢狀寫 `if` 裡面再放 `if`，但能用 `and`/`or` 合併成一層通常更好讀。
+- `a, b = b, a` 可以同時交換兩個變數的值。
+
+<pre><code>if score >= 90:
+    print("優")
+elif score >= 60:
+    print("及格")
+else:
+    print("不及格")</code></pre>
+
+→ [進入章節：條件判斷 if/elif/else](lesson.html?course=001&doc=2-4-1)
+
+## for 迴圈
+
+- `range(5)`：0~4；`range(2, 6)`：2~5；`range(0, 10, 2)`：0,2,4,6,8；`range(5, 0, -1)`：倒數。
+- `for i in range(n):` 重複 n 次；也能直接走訪串列 `for x in 串列:`。
+- 累加固定套路：迴圈前先給初始值(`total = 0`)，迴圈裡 `total = total + i`。
+- 迴圈裡可以搭配 `if`，例如數串列裡的偶數個數。
+
+<pre><code>total = 0
+for i in range(1, 6):
+    total = total + i
+print(total)   # 15</code></pre>
+
+→ [進入章節：for 迴圈](lesson.html?course=001&doc=2-4-2a)
+
+## while 迴圈
+
+- `while 條件:` 只要條件是 `True` 就重複執行，條件變 `False` 才離開；記得在迴圈裡讓條件有機會變 `False`，否則無窮迴圈。
+- 常見用法：讀輸入讀到哨兵值(例如 `0`)才停止。
+- `break`：立刻跳出整個迴圈；`while True:` 搭配內部 `break` 是常見寫法。
+- `continue`：跳過這一輪剩下的程式碼，直接進下一輪。
+- 選擇原則：知道明確次數/走訪串列 → `for`；不知道要跑幾次、依條件停止 → `while`。
+
+<pre><code>i = 1
+while i <= 5:
+    print(i)
+    i = i + 1</code></pre>
+
+→ [進入章節：while 迴圈](lesson.html?course=001&doc=2-4-2b)
+
+## 二維陣列
+
+- 串列裡的元素本身又是串列：`grid[列][行]`，索引一樣從 0 開始，**先列再行**。
+- 建立 r 列 × c 行全 0 網格的固定寫法：`grid = [[0] * c for _ in range(r)]`。
+- 走訪要用**兩層 for**：外層跑列、內層跑行；內層跑完一列後 `print()` 換行。
+
+<pre><code>grid = [[0] * 4 for _ in range(3)]
+for r in range(len(grid)):
+    for c in range(len(grid[r])):
+        print(grid[r][c], end=" ")
+    print()</code></pre>
+
+→ [進入章節：二維陣列](lesson.html?course=001&doc=2-4-3)
+
+## Python 額外補充：2D list 的引用陷阱
+
+- **絕對不要**用 `[[0] * c] * r` 建立二維陣列——這只是把「同一個串列的參考」複製 r 次，改一列會導致每一列都跟著變。
+- 原因：串列存的是「參考(reference)」，`is` 可以驗證 `grid[0] is grid[1]` 是不是同一個物件。
+- 正確寫法一定要用 `for _ in range(r)`，每輪重新建立一個獨立的新串列，這其實就是 2-1-6 教過的「可變物件、`b = a` 不會複製」的陷阱換了個包裝。
+
+→ [進入章節：Python 額外補充：2D list 的引用陷阱](lesson.html?course=001&doc=2-4-4)

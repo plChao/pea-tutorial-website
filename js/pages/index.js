@@ -18,14 +18,28 @@ async function renderCourses() {
       const pct = courseProgress(state, courseId, chapters);
       const course = state.courses[courseId];
       const startChapter = (course && course.lastVisitedChapter) || (chapters[0] && chapters[0].id);
-      const card = document.createElement("a");
+      const sections = meta.sections || {};
+      // A plain <div> here (not <a>) because the review-section pills below
+      // need to be their own links — an <a> can't contain nested <a>s.
+      const card = document.createElement("div");
       card.className = "course-card";
-      card.href = startChapter ? `lesson.html?course=${courseId}&doc=${startChapter}` : "#";
       card.innerHTML = `
-        <h3>${meta.title}</h3>
-        <p>${meta.description || ""}</p>
-        <div class="progress-bar"><div class="progress-bar__fill" style="width:${pct}%"></div></div>
-        <div class="progress-label">${pct}% 完成(共 ${chapters.length} 章)</div>
+        <a class="course-card__link" href="${startChapter ? `lesson.html?course=${courseId}&doc=${startChapter}` : "#"}">
+          <h3>${meta.title}</h3>
+          <p>${meta.description || ""}</p>
+          <div class="progress-bar"><div class="progress-bar__fill" style="width:${pct}%"></div></div>
+          <div class="progress-label">${pct}% 完成(共 ${chapters.length} 章)</div>
+        </a>
+        ${
+          Object.keys(sections).length
+            ? `<div class="course-card__review">
+                <span class="course-card__review-label">複習整理</span>
+                ${Object.entries(sections)
+                  .map(([prefix, title]) => `<a class="review-pill" href="review.html?course=${courseId}&section=${prefix}" title="${title}">${prefix}</a>`)
+                  .join("")}
+              </div>`
+            : ""
+        }
       `;
       grid.appendChild(card);
     });

@@ -24,12 +24,9 @@ export async function loadCourseMetadata(courseId) {
   return meta;
 }
 
-// Document files are Markdown, with raw HTML (e.g. <details>) passed through
-// as-is by marked() — so plain HTML like the old lesson pages still works
-// unchanged, but authoring can also just use "## heading" / "**bold**" /
-// tables / links directly, as in 1-1-1.html and 2-1-1.html.
-export async function loadDocumentHtml(courseId, file) {
-  const raw = await fetchText(`data/document/${courseId}/${file}`);
+// Shared by loadDocumentHtml() and loadCheatsheetHtml(): both file kinds use
+// the same "<script id=meta> JSON + Markdown body" convention (see Method.md).
+function parseMetaAndMarkdown(raw, label) {
   let meta = {};
   let body = raw;
   const metaMatch = raw.match(/<script type="application\/json" id="meta">([\s\S]*?)<\/script>/);
@@ -37,11 +34,29 @@ export async function loadDocumentHtml(courseId, file) {
     try {
       meta = JSON.parse(metaMatch[1]);
     } catch (err) {
-      console.warn(`${file} 的 meta script 不是合法 JSON`, err);
+      console.warn(`${label} 的 meta script 不是合法 JSON`, err);
     }
     body = raw.slice(0, metaMatch.index) + raw.slice(metaMatch.index + metaMatch[0].length);
   }
   return { meta, html: window.marked.parse(body.trim()) };
+}
+
+// Document files are Markdown, with raw HTML (e.g. <details>) passed through
+// as-is by marked() — so plain HTML like the old lesson pages still works
+// unchanged, but authoring can also just use "## heading" / "**bold**" /
+// tables / links directly, as in 1-1-1.html and 2-1-1.html.
+export async function loadDocumentHtml(courseId, file) {
+  const raw = await fetchText(`data/document/${courseId}/${file}`);
+  return parseMetaAndMarkdown(raw, file);
+}
+
+// Cheatsheet files (data/cheatsheet/<section>-sheet.html) are per-big-section
+// review pages, authored with the same meta+Markdown convention as document
+// files — one file per `sections` entry in a course's metadata.md.
+export async function loadCheatsheetHtml(section) {
+  const file = `${section}-sheet.html`;
+  const raw = await fetchText(`data/cheatsheet/${file}`);
+  return parseMetaAndMarkdown(raw, file);
 }
 
 export async function loadExerciseMeta(courseId, exerciseId) {
