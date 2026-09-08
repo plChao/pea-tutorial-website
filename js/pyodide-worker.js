@@ -20,6 +20,32 @@ for __f in (__sys.stdout, __sys.stderr):
         pass
 `;
 
+// The Worker keeps one Python interpreter alive for the whole lesson page (a
+// fresh Pyodide boot per Run would cost seconds), so without this, two things
+// leak from one run into the next even though pyodide.setStdin()/setStdout()
+// are reassigned every time:
+//  - sys.stdin is a persistent CPython BufferedReader object, never recreated
+//    between runs. It reads ahead eagerly, so a run whose code doesn't
+//    consume every byte it was given (e.g. stdin's last line has no trailing
+//    "\n") leaves the remainder cached inside sys.stdin itself, invisible to
+//    setStdin()'s JS-side reset — the next run's first input() drains that
+//    stale leftover before ever seeing its own Ninput.txt.
+//  - runPythonAsync(code) with no explicit globals dict executes into
+//    pyodide.globals, the same dict every call, so a previous run's variables
+//    /functions/imports are still there for the next run to see (or rely on).
+// Everything this needs (the "sys" alias, the loop variable) is local to
+// __apcs_reset_env itself, and the function's own name gets swept up by its
+// own cleanup loop along with everything else non-dunder — so nothing new is
+// left behind in globals for the next run to trip over.
+const RESET_CODE = `def __apcs_reset_env():
+    import sys
+    sys.stdin = open(0, "r", closefd=False)
+    g = globals()
+    for k in [k for k in g if not (k.startswith("__") and k.endswith("__"))]:
+        del g[k]
+__apcs_reset_env()
+`;
+
 // Caps total captured output so a runaway `print()` loop (finishes fast,
 // never trips the timeout) can't balloon postMessage payloads / the DOM.
 const MAX_OUTPUT_CHARS = 200000;
@@ -88,6 +114,10 @@ self.onmessage = async (event) => {
   }
 
   try {
+    // Reset sys.stdin and globals() *inside* the try: a program that already
+    // corrupted __builtins__ or similar should still surface as this run's
+    // own error, not silently skip straight to running old/broken state.
+    pyodide.runPython(RESET_CODE);
     await pyodide.runPythonAsync(code);
     flushStreams();
     self.postMessage({
