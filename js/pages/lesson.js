@@ -22,7 +22,6 @@ import { createCodeEditor, setupStdinTextarea } from "../editor.js";
 import { initPyodideRunner, runPython } from "../pyodideRunner.js";
 import { translateError } from "../errorHints.js";
 import { requireUnlock } from "../authGate.js";
-import { setupDevUnlock } from "../devUnlock.js";
 
 const params = new URLSearchParams(location.search);
 const courseId = params.get("course") || "001";
@@ -588,7 +587,6 @@ function setupRunButton() {
 }
 
 async function init() {
-  setupDevUnlock();
   setupSidebarToggle();
   setupPaneResizing();
   setupIoDivider();
