@@ -1,0 +1,13 @@
+讀入一行句子，把句子裡所有的 `"cat"` 都換成 `"dog"`(用 `.replace()`)，依序輸出：
+
+1. 第一行：取代後的句子
+2. 第二行：取代後的句子長度(用 `len()`)
+
+範例：如果輸入是
+
+<pre><code>I have a cat and my cat is cute</code></pre>
+
+輸出應該是：
+
+<pre><code>I have a dog and my dog is cute
+31</code></pre>

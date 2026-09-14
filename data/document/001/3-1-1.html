@@ -1,0 +1,91 @@
+<script type="application/json" id="meta">
+{ "title": "字串(string)" }
+</script>
+
+<p class="eyebrow">CHAPTER 3-1-1</p>
+<h1>字串(string)</h1>
+
+從最一開始你就在用字串(`str`)了，例如 `"Hello"`、`input()` 讀進來的文字。這一章要正式介紹字串常用的操作——你會發現字串其實跟串列(list)很像，可以用一樣的方式取值、切片，只是字串**不能修改**(這件事在可變/不可變那一章已經學過)。
+
+## 字串就是一串字元
+
+字串可以想成是「一串字元排在一起」，跟串列很像，只是裡面每個元素都是字元。所以串列學過的索引、切片、`len()`、`in`，幾乎都可以直接套用在字串上。
+
+## 索引(index)：取出某個位置的字元
+
+跟串列一樣，從 `0` 開始算，也支援負索引：
+
+<pre><code>s = "Python"
+print(s[0])    # P，第一個字元
+print(s[3])    # h
+print(s[-1])   # n，最後一個字元</code></pre>
+
+## 切片(slice)：取出一段連續的字元
+
+用法跟串列切片完全一樣，`字串[起點:終點]`，**包含起點、不包含終點**：
+
+<pre><code>s = "Programming"
+print(s[0:4])    # Prog
+print(s[:4])      # Prog，省略起點代表從頭開始
+print(s[4:])      # ramming，省略終點代表到最後
+print(s[:])        # Programming，整個複製一份
+print(s[::-1])      # gnimmargorP，反過來排</code></pre>
+
+切片還可以加第三個數字當作「間隔」，例如 `s[::2]` 代表每隔一格取一個字元：
+
+<pre><code>s = "abcdefgh"
+print(s[::2])    # aceg
+print(s[1::2])    # bdfh</code></pre>
+
+切片出來的結果永遠是一個**新的字串**，不會影響原本的 `s`。
+
+## len()：字串的長度
+
+<pre><code>s = "Python"
+print(len(s))   # 6</code></pre>
+
+## 字串串接與重複：+ 和 *
+
+<pre><code>a = "Hello"
+b = "World"
+print(a + " " + b)   # Hello World，把字串接在一起
+print("ab" * 3)          # ababab，重複 3 次</code></pre>
+
+## in：檢查有沒有出現這個子字串
+
+跟串列的 `in` 一樣，結果直接是 `True`/`False`：
+
+<pre><code>s = "Hello World"
+print("World" in s)   # True
+print("world" in s)   # False，大小寫不同也算不一樣</code></pre>
+
+## 常用字串方法
+
+<pre><code>s = "  Hello World  "
+print(s.upper())         # "  HELLO WORLD  "，轉大寫
+print(s.lower())          # "  hello world  "，轉小寫
+print(s.strip())           # "Hello World"，去掉頭尾空白
+print(s.replace("World", "Python"))   # "  Hello Python  "，取代</code></pre>
+
+這些方法**都不會修改原本的字串**(字串不可變，前面章節學過)，而是回傳一個新的字串。如果想留下結果，要記得存到變數裡，例如 `s = s.strip()`。
+
+之前 2-1-4 學過的 `.split()` 是把字串拆成串列，剛好有一個相反的方法 `.join()`，可以把一個串列接回字串，中間用指定的字元隔開：
+
+<pre><code>words = ["I", "love", "Python"]
+print(" ".join(words))    # I love Python
+print("-".join(words))     # I-love-Python</code></pre>
+
+## for 迴圈走訪字串
+
+跟走訪串列一樣，`for` 也可以直接走訪字串裡的每一個字元：
+
+<pre><code>for ch in "abc":
+    print(ch)</code></pre>
+
+輸出：
+
+<pre><code>a
+b
+c</code></pre>
+
+準備好了嗎？下面的練習會用到索引、切片、`len()`、`in`、字串方法，還有走訪字串。

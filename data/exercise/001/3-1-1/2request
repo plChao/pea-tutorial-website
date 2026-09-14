@@ -1,0 +1,10 @@
+已知 `s = "abcdefgh"`，請問 `s[2:6]` 的值是？
+
+<select1>A. "bcde"</select1>
+<select2>B. "cdef"</select2>
+<select3>C. "cdefg"</select3>
+<select4>D. "def"</select4>
+<ans>B</ans>
+<detail>
+切片 `[起點:終點]` 會包含起點、不包含終點。`s[2:6]` 從索引 2(`c`)開始，取到索引 5(`f`)為止，不包含索引 6(`g`)，結果是 `"cdef"`。
+</detail>

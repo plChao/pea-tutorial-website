@@ -6,6 +6,7 @@ sections:
   "2-1": "資料型別與輸入輸出(IO)"
   "2-3": "運算元(operator)"
   "2-4": "流程控制"
+  "3-1": "字元與字串"
 chapters:
   - id: "1-1-1"
     title: "APCS 簡介"
@@ -78,4 +79,12 @@ chapters:
     title: "Python 額外補充：2D list 的引用陷阱"
     file: "2-4-4.html"
     exercise: "2-4-4"
+  - id: "3-1-1"
+    title: "字串(string)"
+    file: "3-1-1.html"
+    exercise: "3-1-1"
+  - id: "3-1-2"
+    title: "字元(character)與 ASCII"
+    file: "3-1-2.html"
+    exercise: "3-1-2"
 ---

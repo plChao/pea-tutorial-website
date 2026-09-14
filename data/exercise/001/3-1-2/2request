@@ -1,0 +1,10 @@
+請問 `ord('a') - ord('A')` 的值是？
+
+<select1>A. 0</select1>
+<select2>B. 26</select2>
+<select3>C. 32</select3>
+<select4>D. 97</select4>
+<ans>C</ans>
+<detail>
+`ord('a')` 是 97、`ord('A')` 是 65，兩者相差 32。這個固定的差距，就是小寫字母跟對應大寫字母之間的 ASCII 差，之後可以用來手動轉換大小寫。
+</detail>

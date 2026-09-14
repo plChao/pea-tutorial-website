@@ -1,0 +1,10 @@
+已知 `s = "Programming"`，請問 `s[-3]` 的值是？
+
+<select1>A. 'm'</select1>
+<select2>B. 'i'</select2>
+<select3>C. 'n'</select3>
+<select4>D. 'g'</select4>
+<ans>B</ans>
+<detail>
+`s` 總共有 11 個字元，索引從 `0`(`P`)到 `10`(`g`)。負索引 `-1` 是最後一個字元 `g`，`-2` 是 `n`，`-3` 就是 `i`。
+</detail>

@@ -1,0 +1,15 @@
+讀入一行英文句子，依序輸出：
+
+1. 第一行：句子全部轉小寫(`.lower()`)
+2. 第二行：句子的長度(含空白，用 `len()`)
+3. 第三行：句子反過來寫(用切片 `[::-1]`)
+
+範例：如果輸入是
+
+<pre><code>Hello World</code></pre>
+
+輸出應該是：
+
+<pre><code>hello world
+11
+dlroW olleH</code></pre>

@@ -1,0 +1,73 @@
+<script type="application/json" id="meta">
+{ "title": "字元(character)與 ASCII" }
+</script>
+
+<p class="eyebrow">CHAPTER 3-1-2</p>
+<h1>字元(character)與 ASCII</h1>
+
+上一章學到用索引 `s[0]` 可以從字串裡取出一個字元。不過要注意：Python **沒有獨立的「字元(char)」型別**，`s[0]` 取出來的東西其實還是一個**長度為 1 的字串**：
+
+<pre><code>s = "Python"
+print(type(s[0]))   # <class 'str'>，還是 str，不是什麼特別的 char 型別</code></pre>
+
+## 電腦怎麼存文字：ASCII 對照表
+
+電腦裡所有資料本質上都是數字，文字也不例外。每個字元背後都對應一個固定的數字，這個對照表最早的標準叫 **ASCII**，規定了英文字母、數字、常見符號分別對應哪個數字(0~127)。幾個常用的對照值：
+
+| 字元 | ASCII 值 |
+|:---:|:---:|
+| `'A'` ~ `'Z'` | 65 ~ 90 |
+| `'a'` ~ `'z'` | 97 ~ 122 |
+| `'0'` ~ `'9'` | 48 ~ 57 |
+| `' '`(空白) | 32 |
+
+規律：同一組英文字母(`A`~`Z` 或 `a`~`z`)在表裡是**連續排列**的，這件事等一下做字元運算會用到。
+
+## ord()：查字元對應的數字
+
+<pre><code>print(ord('A'))   # 65
+print(ord('a'))    # 97
+print(ord('0'))     # 48</code></pre>
+
+## chr()：數字轉回字元
+
+`chr()` 剛好跟 `ord()` 相反：
+
+<pre><code>print(chr(65))   # A
+print(chr(97))    # a
+print(chr(66))     # B</code></pre>
+
+## 字元不能直接加減
+
+因為字元本質上是字串，`'a' + 1` 這種寫法會直接出錯(`TypeError`，字串不能跟數字相加)。想對字元做「加減」，正確做法是：**先用 `ord()` 轉成數字，做完運算，再用 `chr()` 轉回字元**：
+
+<pre><code>c = 'a'
+next_c = chr(ord(c) + 1)
+print(next_c)   # b</code></pre>
+
+## 範例：手動把小寫轉大寫
+
+雖然字串已經有現成的 `.upper()` 可以用，但這裡示範怎麼用 `ord()`/`chr()` 自己算出來，之後遇到更複雜的字元運算(例如加密)就會用到一樣的技巧。
+
+`'a'` 是 97、`'A'` 是 65，兩者差 32，剛好是 `'a'` 到 `'z'` 這整組字母跟 `'A'` 到 `'Z'` 那組字母之間固定的差距：
+
+<pre><code>c = 'g'
+upper_c = chr(ord(c) - 32)
+print(upper_c)   # G</code></pre>
+
+## 範例：判斷是不是英文字母
+
+搭配之前學過的 `if` 跟比較運算子，可以用 `ord()` 的範圍判斷一個字元是不是英文字母：
+
+<pre><code>c = input()
+code = ord(c)
+if code >= ord('a') and code <= ord('z'):
+    print("小寫字母")
+elif code >= ord('A') and code <= ord('Z'):
+    print("大寫字母")
+else:
+    print("不是英文字母")</code></pre>
+
+`ord('a')`、`ord('A')` 這樣寫，比直接寫死 `97`、`65` 更容易看懂，也比較不容易記錯。
+
+準備好了嗎？下面的練習會用到 `ord()`、`chr()`，還有搭配 `for` 迴圈對字串裡每個字元做加減運算。
