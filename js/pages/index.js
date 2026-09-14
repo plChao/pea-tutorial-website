@@ -1,6 +1,7 @@
 import { loadCourseList, loadCourseMetadata } from "../dataLoader.js";
 import { loadState, courseProgress, exportStateAsJSON, importStateFromJSON } from "../storage.js";
 import { BADGES } from "../badges.js";
+import { requireUnlock } from "../authGate.js";
 
 async function renderCourses() {
   const grid = document.getElementById("courseGrid");
@@ -101,6 +102,8 @@ function setupImportExport() {
   });
 }
 
-renderCourses();
-renderBadges();
-setupImportExport();
+requireUnlock(() => {
+  renderCourses();
+  renderBadges();
+  setupImportExport();
+});

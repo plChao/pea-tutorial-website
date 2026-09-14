@@ -100,14 +100,6 @@ export function markChapterComplete(state, courseId, chapterId) {
   return ch;
 }
 
-export function isChapterUnlocked(state, courseId, chapters, chapterId) {
-  const idx = chapters.findIndex((c) => c.id === chapterId);
-  if (idx <= 0) return true;
-  const prevId = chapters[idx - 1].id;
-  const course = state.courses[courseId];
-  return !!(course && course.chapters[prevId] && course.chapters[prevId].completed);
-}
-
 export function courseProgress(state, courseId, chapters) {
   if (!chapters.length) return 0;
   const course = state.courses[courseId];

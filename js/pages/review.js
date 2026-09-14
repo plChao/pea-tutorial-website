@@ -1,4 +1,5 @@
 import { loadCourseMetadata, loadCheatsheetHtml } from "../dataLoader.js";
+import { requireUnlock } from "../authGate.js";
 
 const params = new URLSearchParams(location.search);
 const courseId = params.get("course") || "001";
@@ -145,4 +146,4 @@ async function init() {
   await loadContent();
 }
 
-init();
+requireUnlock(init);

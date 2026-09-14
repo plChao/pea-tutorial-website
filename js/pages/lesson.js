@@ -13,7 +13,6 @@ import {
   setLastVisited,
   recordSubtaskAttempt,
   markChapterComplete,
-  isChapterUnlocked,
   recordPracticeToday,
 } from "../storage.js";
 import { evaluateBadges, celebrateBadges } from "../badges.js";
@@ -21,6 +20,7 @@ import { renderDiffHtml, outputsMatch } from "../diff.js";
 import { createCodeEditor, setupStdinTextarea } from "../editor.js";
 import { initPyodideRunner, runPython } from "../pyodideRunner.js";
 import { translateError } from "../errorHints.js";
+import { requireUnlock } from "../authGate.js";
 
 const params = new URLSearchParams(location.search);
 const courseId = params.get("course") || "001";
@@ -115,7 +115,6 @@ function renderSidebarAndTopbar() {
   let lastSectionPrefix = null;
 
   chapters.forEach((ch) => {
-    const unlocked = isChapterUnlocked(state, courseId, chapters, ch.id);
     const progress = getChapterProgress(state, courseId, ch.id);
     const isCurrent = ch.id === docId;
 
@@ -140,8 +139,7 @@ function renderSidebarAndTopbar() {
     a.className = "chapter-list__link";
     if (sectionTitle) a.classList.add("chapter-list__link--indented");
     if (isCurrent) a.classList.add("chapter-list__link--active");
-    if (!unlocked) a.classList.add("chapter-list__link--locked");
-    const icon = progress.completed ? "✅" : unlocked ? "📘" : "🔒";
+    const icon = progress.completed ? "✅" : "📘";
     a.textContent = `${icon} ${ch.title}`;
     li.appendChild(a);
     els.chapterList.appendChild(li);
@@ -156,9 +154,6 @@ function renderSidebarAndTopbar() {
   updateFooterNav();
 }
 
-// Footer's "下一章" stays clickable even when locked (not a native `disabled`
-// button) so clicking it can explain *why* via SweetAlert, instead of a real
-// disabled button that would just silently eat the click.
 function updateFooterNav() {
   const idx = chapters.findIndex((c) => c.id === docId);
   els.footerProgress.textContent = `${idx + 1} / ${chapters.length}`;
@@ -167,14 +162,7 @@ function updateFooterNav() {
   els.footerPrevBtn.disabled = !prevChapter;
 
   const nextChapter = chapters[idx + 1];
-  if (!nextChapter) {
-    els.footerNextBtn.disabled = true;
-    els.footerNextBtn.classList.remove("btn--locked");
-  } else {
-    els.footerNextBtn.disabled = false;
-    const progress = getChapterProgress(state, courseId, docId);
-    els.footerNextBtn.classList.toggle("btn--locked", !progress.completed);
-  }
+  els.footerNextBtn.disabled = !nextChapter;
 }
 
 function setupFooterNav() {
@@ -188,18 +176,6 @@ function setupFooterNav() {
     const idx = chapters.findIndex((c) => c.id === docId);
     const next = chapters[idx + 1];
     if (!next) return;
-    const progress = getChapterProgress(state, courseId, docId);
-    if (!progress.completed) {
-      if (window.Swal) {
-        window.Swal.fire({
-          icon: "info",
-          title: "還沒完成這一章喔",
-          text: "請先完成這一章的所有任務，才能前往下一章。",
-          confirmButtonText: "好的",
-        });
-      }
-      return;
-    }
     location.href = `lesson.html?course=${courseId}&doc=${next.id}`;
   });
 }
@@ -612,4 +588,4 @@ async function init() {
   renderSidebarAndTopbar();
 }
 
-init();
+requireUnlock(init);

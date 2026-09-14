@@ -24,6 +24,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Generate access-gate config from secret
+        env:
+          THE_ACCESS_CODE: ${{ secrets.THE_ACCESS_CODE }}
+        run: |
+          if [ -z "$THE_ACCESS_CODE" ]; then
+            echo "::error::THE_ACCESS_CODE secret is not set on the github-pages environment."
+            exit 1
+          fi
+          HASH=$(printf '%s' "$THE_ACCESS_CODE" | sha256sum | cut -d' ' -f1)
+          printf 'export const PASSWORD_HASH = "%s";\n' "$HASH" > js/auth-config.js
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
