@@ -45,6 +45,12 @@ export async function celebrateBadges(newlyEarned) {
       html: `<strong>${b.title}</strong><br>${b.desc}`,
       icon: "success",
       confirmButtonText: "太棒了！",
+      // SweetAlert2 defaults to heightAuto:true, which sets document.body's
+      // height to "auto" while the modal is open — that collapses the lesson
+      // page's fixed `height:100vh` body layout and resets the lesson-content
+      // pane's internal scroll position back to the top. Keep body height
+      // untouched so the reader's scroll position survives the popup.
+      heightAuto: false,
     });
   }
 }
