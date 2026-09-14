@@ -1,0 +1,40 @@
+<script type="application/json" id="meta">
+{ "title": "3-1 字元與字串 複習整理" }
+</script>
+
+<p class="eyebrow">複習整理</p>
+<h1>3-1 字元與字串</h1>
+
+這頁把 3-1 這個大章節的重點濃縮成一張複習表，每個小節後面都有連結可以直接跳回原章節複習細節。
+
+## 字串 string
+
+- 字串跟串列很像，索引、切片、`len()`、`in` 幾乎都通用：`s[0]` 第一個字元、`s[-1]` 最後一個字元。
+- 切片 `s[起點:終點]`：含起點不含終點；`s[::-1]` 反轉字串；`s[::2]` 每隔一格取一個。
+- 字串串接用 `+`，重複用 `*`：`"ab" * 3` 是 `"ababab"`。
+- 常用方法：`.upper()`/`.lower()` 轉大小寫、`.strip()` 去頭尾空白、`.replace(old, new)` 取代。這些方法**都不會修改原字串**，會回傳新字串。
+- `.split()` 把字串拆成串列；`.join()` 相反，把串列接回字串：`" ".join(["a","b"])` 是 `"a b"`。
+- `for ch in s:` 可以逐一走訪字串裡的每個字元，跟走訪串列的寫法一樣。
+
+<pre><code>s = "Programming"
+print(s[:4])       # Prog
+print(s[::-1])      # gnimmargorP
+print(s.upper())     # PROGRAMMING</code></pre>
+
+→ [進入章節：字串(string)](lesson.html?course=001&doc=3-1-1)
+
+## 字元 character 與 ASCII
+
+- Python 沒有獨立的字元型別，`s[0]` 取出來的還是**長度為 1 的字串**。
+- ASCII 對照表：`'A'~'Z'` 是 65~90、`'a'~'z'` 是 97~122、`'0'~'9'` 是 48~57，同一組字母連續排列。
+- `ord(c)`：查字元對應的數字；`chr(n)`：數字轉回字元，兩者互為反函式。
+- 字元**不能直接加減**(會 `TypeError`)，要先 `ord()` 轉成數字、運算完再 `chr()` 轉回字元：`chr(ord(c) + 1)`。
+- `ord('a') - ord('A')` 是 32，是同一個字母大小寫之間固定的差距，可以用來手動轉換大小寫。
+- 判斷字元類型常搭配 `if` + `ord()` 範圍比較，例如 `ord('a') <= code <= ord('z')` 判斷是不是小寫字母。
+
+<pre><code>c = 'a'
+print(ord(c))              # 97
+print(chr(ord(c) + 1))      # b
+print(chr(ord(c) - 32))      # A，手動轉大寫</code></pre>
+
+→ [進入章節：字元(character)與 ASCII](lesson.html?course=001&doc=3-1-2)
