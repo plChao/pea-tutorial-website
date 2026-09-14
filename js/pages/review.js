@@ -1,6 +1,4 @@
 import { loadCourseMetadata, loadCheatsheetHtml } from "../dataLoader.js";
-import { requireUnlock } from "../authGate.js";
-import { setupDevUnlock } from "../devUnlock.js";
 
 const params = new URLSearchParams(location.search);
 const courseId = params.get("course") || "001";
@@ -135,7 +133,6 @@ async function loadContent() {
 }
 
 async function init() {
-  setupDevUnlock();
   setupSidebarToggle();
 
   meta = await loadCourseMetadata(courseId);
@@ -148,4 +145,4 @@ async function init() {
   await loadContent();
 }
 
-requireUnlock(init);
+init();
