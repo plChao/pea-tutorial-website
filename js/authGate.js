@@ -34,8 +34,13 @@ async function sha256Hex(text) {
     .join("");
 }
 
+// The unlocked flag stores the PASSWORD_HASH that was active when the visitor
+// unlocked, not just a bare "1" — so if the access code is ever changed (a
+// new deploy regenerates auth-config.js with a different hash), a browser
+// that unlocked under the old password no longer matches and has to
+// re-enter the new one instead of staying unlocked forever.
 export function isUnlocked() {
-  return localStorage.getItem(UNLOCK_KEY) === "1";
+  return !!PASSWORD_HASH && localStorage.getItem(UNLOCK_KEY) === PASSWORD_HASH;
 }
 
 /**
@@ -74,7 +79,7 @@ function renderGate(onUnlock) {
     submitBtn.disabled = true;
     const hash = await sha256Hex(input.value);
     if (PASSWORD_HASH && hash === PASSWORD_HASH) {
-      localStorage.setItem(UNLOCK_KEY, "1");
+      localStorage.setItem(UNLOCK_KEY, PASSWORD_HASH);
       overlay.remove();
       onUnlock();
       return;
